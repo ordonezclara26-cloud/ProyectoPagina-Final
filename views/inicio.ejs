@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Inicio</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    background: #111;
+    color: white;
+}
+
+.logo img {
+    height: 35px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    margin: 0 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #f1c40f;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
+    background: url('/img/tienda.jpg') center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.hero-content {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 15px;
+}
+
+/* INFO */
+.info {
+    padding: 40px;
+    text-align: center;
+}
+
+/* CONTACTO */
+.contacto {
+    background: #111;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+
+    <div class="nav-links">
+        <a href="/productos">Productos</a>
+        <a href="/carrito">Carrito</a>
+        <a href="/soporte">Soporte</a>
+        <a href="/ciber">Ciber</a>
+        <a href="/visas">Visas</a>
+    </div>
+
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+        <h1>ENCUENTRA LO QUE NECESITAS</h1>
+        <p>Equipos tecnológicos, accesorios y soluciones informáticas en un solo lugar</p>
+    </div>
+</div>
+
+<!-- INFO -->
+<div class="info">
+    <h2>¿Quiénes somos?</h2>
+
+    <p>
+        Sico's es una empresa informática ubicada en Juticalpa, Olancho,
+        dedicada a la venta de equipos tecnológicos, accesorios y soporte técnico.
+    </p>
+
+    <p>
+        Ofrecemos soluciones confiables para estudiantes, empresas y público en general.
+    </p>
+</div>
+
+<!-- CONTACTO -->
+<div class="contacto">
+    <h2>Contacto</h2>
+    <p>📍 Barrio Belén, Juticalpa, Olancho</p>
+    <p>📞 +504 8841-1918</p>
+    <p>✉️ sicos6070@gmail.com</p>
+</div>
+
+</body>
+</html>

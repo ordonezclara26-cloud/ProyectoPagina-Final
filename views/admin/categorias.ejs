@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Categorías</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f4f4;
+}
+
+.navbar {
+    background: #111;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+}
+
+.container {
+    padding: 30px;
+}
+
+.form-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-add {
+    background: green;
+    color: white;
+}
+
+.btn-edit {
+    background: orange;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-delete {
+    background: red;
+    color: white;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin: 0;
+}
+
+.actions {
+    margin-top: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+    GESTION DE CATEGORÍAS
+</div>
+
+<a href="/admin" style="
+display:inline-block;
+margin:15px;
+padding:8px 15px;
+background:black;
+color:white;
+text-decoration:none;
+border-radius:6px;
+">
+← Volver al Panel
+</a>
+
+<div class="container">
+
+<!-- 🔥 MENSAJE (AQUÍ VA, ARRIBA DEL TODO) -->
+<% if (mensaje) { %>
+<div style="
+background: #16a34a;
+color: white;
+padding: 10px;
+margin-bottom: 15px;
+border-radius: 8px;
+text-align:center;
+">
+    <%= mensaje %>
+</div>
+<% } %>
+
+<!-- 🔥 FORM -->
+<div class="form-box">
+    <form action="/admin/categorias/agregar" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="text" name="descripcion" placeholder="Descripción" required>
+        <button type="submit" class="btn-add">Agregar</button>
+    </form>
+</div>
+
+<!-- 🔥 LISTA -->
+<div class="grid">
+<% categorias.forEach(c => { %>
+    <div class="card">
+        <h3><%= c.nombre %></h3>
+        <p><%= c.descripcion %></p>
+
+        <div class="actions">
+
+            <a href="/admin/categorias/editar/<%= c.id %>" class="btn-edit">
+                Editar
+            </a>
+
+            <form action="/admin/categorias/eliminar" method="POST" style="display:inline;">
+                <input type="hidden" name="id" value="<%= c.id %>">
+                <button type="submit" class="btn-delete">Eliminar</button>
+            </form>
+
+        </div>
+    </div>
+<% }) %>
+</div>
+
+</div>
+
+</body>
+</html>

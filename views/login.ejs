@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.fondo {
+    height: 100vh;
+    background: url('/img/tienda.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+.login-box {
+    position: relative;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    z-index: 2;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #333;
+}
+
+a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+/* 🔥 BOTÓN ADMIN SOLO PARA PRUEBAS */
+.admin-btn {
+    margin-top: 10px;
+    background: #ff6600;
+    color: white;
+    border-radius: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="fondo">
+
+    <div class="overlay"></div>
+
+    <div class="login-box">
+
+        <img src="/img/logo.png" style="height:60px; margin-bottom:20px;">
+
+        <h2>Iniciar Sesión</h2>
+
+        <% if (typeof error !== 'undefined') { %>
+        <div style="
+        background: #dc2626;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        ">
+            <%= error %>
+        </div>
+        <% } %>
+
+        <form action="/auth/login" method="POST">
+            <input type="email" name="correo" placeholder="Correo" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <a href="/register">Crear cuenta</a>
+    </div>
+
+</div>
+
+</body>
+</html>

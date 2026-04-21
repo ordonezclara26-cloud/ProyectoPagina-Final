@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ciber</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #111;
+    color: white;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+/* CARD */
+.card {
+    background: #111;
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.nombre {
+    margin-top: 10px;
+    font-weight: bold;
+}
+.subtitulo {
+    text-align: center;
+    max-width: 750px;
+    margin: 10px auto 20px;
+    color: #555;
+    font-size: 16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+
+    <div class="nav-links">
+        <a href="/inicio">Inicio</a>
+        <a href="/productos">Productos</a>
+        <a href="/carrito">Carrito</a>
+
+        <a href="/soporte">Soporte</a>
+        <a href="/ciber">Ciber</a>
+        <a href="/visas">Visas</a>
+    </div>
+</div>
+
+
+<h1 style="text-align:center; margin-top:20px;">Servicios de Ciber</h1>
+<p class="subtitulo">
+¿Necesitas imprimir, sacar copias o crear documentos? Ofrecemos servicios rápidos y profesionales para tus trabajos y trámites.
+</p>
+
+<div class="grid">
+
+    <div class="card">
+        <img src="/img/print.jpg">
+        <p class="nombre">Impresión de documentos</p>
+    </div>
+
+    <div class="card">
+        <img src="/img/copia.jpg">
+        <p class="nombre">Fotocopias en alta calidad</p>
+    </div>
+
+    <div class="card">
+        <img src="/img/cv.jpg">
+        <p class="nombre">Elaboración de currículum profesional</p>
+    </div>
+
+    <div class="card">
+        <img src="/img/presentacion.jpg">
+        <p class="nombre">Creación de presentaciones</p>
+    </div>
+
+    <div class="card">
+        <img src="/img/docs.jpg">
+        <p class="nombre">Redacción de documentos</p>
+    </div>
+
+    <div class="card">
+        <img src="/img/carnet.jpg">
+        <p class="nombre">Diseño e impresión de carnets</p>
+    </div>
+
+    <div class="card">
+        <img src="/img/grabacion.jpg">
+        <p class="nombre">Grabación USB</p>
+    </div>
+
+</div>
+
+</body>
+</html>

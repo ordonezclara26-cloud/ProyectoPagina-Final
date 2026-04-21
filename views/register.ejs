@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #38a169;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2f855a;
+        }
+
+        a {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Crear Cuenta</h2>
+
+    <!-- AQUÍ ESTÁ LA CORRECCIÓN -->
+    <form action="/auth/register" method="POST" autocomplete="off">
+        <input type="text" name="nombre" placeholder="Nombre" required autocomplete="off">
+        <input type="email" name="correo" placeholder="Correo" required autocomplete="off">
+        <input type="password" name="password" placeholder="Contraseña" required autocomplete="new-password">
+        <button type="submit">Registrarse</button>
+    </form>
+    <a href="/admin/login">Volver al login</a>
+</div>
+
+</body>
+</html>

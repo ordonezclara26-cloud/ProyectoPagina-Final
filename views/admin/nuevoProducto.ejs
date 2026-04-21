@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nuevo Producto</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+/* 🔥 NAVBAR */
+.navbar {
+    background: #111;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+}
+
+/* 🔥 CONTENEDOR */
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+/* 🔥 INPUTS */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* 🔥 BOTÓN */
+button {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* 🔥 VOLVER */
+.volver {
+    display: inline-block;
+    margin: 15px;
+    padding: 8px 15px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+    AGREGAR PRODUCTO
+</div>
+
+<a href="/admin/productos" class="volver">
+← Volver a Productos
+</a>
+
+<div class="container">
+
+<h2>Nuevo Producto</h2>
+
+<form action="/admin/productos/guardar" method="POST">
+
+<input type="text" name="nombre" placeholder="Nombre" required>
+
+<input type="text" name="descripcion" placeholder="Descripción" required>
+
+<input type="number" name="precio" placeholder="Precio" required>
+
+<select name="categoria_id" required>
+    <option value="">Seleccione categoría</option>
+    <% categorias.forEach(c => { %>
+        <option value="<%= c.id %>"><%= c.nombre %></option>
+    <% }) %>
+</select>
+
+<button type="submit">Guardar</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

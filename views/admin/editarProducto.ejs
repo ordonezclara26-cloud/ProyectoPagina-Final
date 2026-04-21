@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Editar Producto</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Editar Producto</h2>
+
+<form action="/admin/productos/editar" method="POST">
+
+<input type="hidden" name="id" value="<%= producto.id %>">
+
+<input type="text" name="nombre" value="<%= producto.nombre %>" required>
+
+<input type="text" name="descripcion" value="<%= producto.descripcion %>" required>
+
+<input type="number" name="precio" value="<%= producto.precio %>" required>
+
+<input type="text" name="imagen" value="<%= producto.imagen %>">
+
+<button>Guardar cambios</button>
+
+</form>
+
+<br>
+
+<a href="/admin/productos">← Volver</a>
+
+</div>
+
+</body>
+</html>

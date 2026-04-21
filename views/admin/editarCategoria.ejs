@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Editar Categoría</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f4f4;
+}
+
+.container {
+    padding: 30px;
+}
+
+.form-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input {
+    padding: 8px;
+    margin: 5px;
+}
+
+button {
+    padding: 8px 12px;
+    background: orange;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Editar Categoría</h2>
+
+<form action="/admin/categorias/editar" method="POST">
+
+    <input type="hidden" name="id" value="<%= categoria.id %>">
+
+    <input type="text" name="nombre" value="<%= categoria.nombre %>" required>
+
+    <input type="text" name="descripcion" value="<%= categoria.descripcion %>" required>
+
+    <button type="submit">Guardar</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

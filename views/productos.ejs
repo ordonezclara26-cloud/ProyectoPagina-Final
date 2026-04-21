@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Productos</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f5f5f5;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #111;
+    color: white;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+/* FILTRO */
+.filtro {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.filtro a {
+    margin: 5px;
+    padding: 6px 12px;
+    background: #ddd;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+/* BUSCADOR */
+.search-box {
+    display: flex;
+}
+
+.search-box input {
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+}
+
+.search-box button {
+    border: none;
+    background: #555;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 0 5px 5px 0;
+}
+
+/* ICONO PRODUCTO */
+.producto {
+    font-size: 20px;
+}
+
+/* MENSAJE */
+.alerta {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16a34a;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    z-index: 9999;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.nombre {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.precio {
+    font-weight: bold;
+    color: green;
+}
+
+/* CONTROL */
+.control-cantidad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-control {
+    background: black;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cantidad {
+    font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+
+    <div class="nav-links">
+        <a href="/inicio">Inicio</a>
+        <a href="/carrito">Carrito</a>
+    </div>
+
+    <div class="search-box">
+        <form action="/buscar" method="GET" class="search-box">
+            <input type="text" name="q" placeholder="Buscar productos...">
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+
+    <div class="producto">
+        📦
+    </div>
+
+</div>
+
+<h1 style="text-align:center; margin-top:20px;">
+    Tienda de Productos
+</h1>
+
+<div class="filtro">
+    <a href="/productos">Todos</a>
+
+    <% if (categorias && categorias.length > 0) { %>
+        <% categorias.forEach(c => { %>
+            <a href="/productos?categoria=<%= c.id %>">
+                <%= c.nombre %>
+            </a>
+        <% }) %>
+    <% } %>
+</div>
+
+<% if (mensaje) { %>
+    <div id="mensaje" class="alerta">
+        <%= mensaje %>
+    </div>
+<% } %>
+
+<div class="grid">
+<% productos.forEach(p => { %>
+    <div class="card">
+
+        <!-- 🔥 IMAGEN CORREGIDA -->
+        <img src="/img/<%= p.imagen %>" 
+             onerror="this.src='https://picsum.photos/200'">
+
+        <p class="nombre"><%= p.nombre %></p>
+        <p><%= p.descripcion %></p>
+        <p class="precio">L. <%= p.precio %></p>
+
+        <div class="control-cantidad" data-id="<%= p.id %>">
+
+            <button class="btn-control menos">-</button>
+
+            <span class="cantidad">0</span>
+
+            <button class="btn-control mas">+</button>
+
+        </div>
+
+    </div>
+<% }) %>
+</div>
+
+<script>
+
+document.querySelectorAll(".control-cantidad").forEach(control => {
+
+    const id = control.getAttribute("data-id");
+    const span = control.querySelector(".cantidad");
+
+    fetch('/carrito/cantidad/' + id)
+        .then(res => res.json())
+        .then(data => span.innerText = data.cantidad);
+
+    control.querySelector(".mas").addEventListener("click", () => {
+        fetch('/carrito/agregar', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'id=' + id
+        })
+        .then(() => fetch('/carrito/cantidad/' + id))
+        .then(res => res.json())
+        .then(data => span.innerText = data.cantidad);
+    });
+
+    control.querySelector(".menos").addEventListener("click", () => {
+        fetch('/carrito/restar', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'id=' + id
+        })
+        .then(() => fetch('/carrito/cantidad/' + id))
+        .then(res => res.json())
+        .then(data => span.innerText = data.cantidad);
+    });
+
+});
+
+</script>
+
+<script>
+setTimeout(() => {
+    const msg = document.getElementById("mensaje");
+    if (msg) msg.remove();
+}, 2000);
+</script>
+
+</body>
+</html>

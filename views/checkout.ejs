@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Finalizar Compra</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f6f9;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #111;
+    color: white;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn-pagar {
+    width: 100%;
+    padding: 12px;
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+</div>
+
+<div class="container">
+
+<h2>Finalizar Compra</h2>
+
+<form action="/compra" method="POST">
+
+<input type="text" name="nombre" placeholder="Nombre completo" required>
+<input type="email" name="correo" placeholder="Correo electrónico" required>
+
+<input type="text" name="telefono" placeholder="Teléfono" required>
+<input type="text" name="direccion" placeholder="Dirección exacta" required>
+
+<select name="envio" required>
+    <option value="mandadito">Mandadito</option>
+</select>
+
+<select name="metodo" required>
+    <option value="contra_entrega">Pago contra entrega</option>
+</select>
+
+<button class="btn-pagar">Confirmar pedido</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Compra Exitosa</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f6f9;
+    text-align: center;
+    padding: 50px;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.codigo {
+    font-size: 22px;
+    font-weight: bold;
+    color: green;
+}
+
+.btn {
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 20px;
+    background:black;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>✅ Compra realizada con éxito</h2>
+
+<p>Tu pedido ha sido registrado correctamente</p>
+
+<p class="codigo">
+Código de pedido: <%= codigo %>
+</p>
+
+<a href="/productos" class="btn">
+Volver a la tienda
+</a>
+<br><br>
+
+<a href="<%= url %>" target="_blank" class="btn">
+📲 Enviar pedido por WhatsApp
+</a>
+
+</div>
+
+</body>
+</html>

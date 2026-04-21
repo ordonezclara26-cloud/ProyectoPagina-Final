@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Productos</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+}
+
+/* 🔥 NAVBAR */
+.navbar {
+    background: #111;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+}
+
+/* 🔥 BOTÓN VOLVER */
+.volver {
+    display:inline-block;
+    margin:15px;
+    padding:8px 15px;
+    background:black;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+/* 🔥 CONTENEDOR */
+.container {
+    padding: 20px;
+}
+
+/* 🔥 BOTÓN NUEVO */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background: black;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+
+/* 🔥 GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* 🔥 CARD */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 🔥 TEXTO */
+.nombre {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.precio {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+/* 🔥 BOTONES */
+.btn-edit {
+    display: block;
+    margin-top: 10px;
+    background: #444;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-delete {
+    margin-top: 8px;
+    background: #666;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- 🔥 BARRA -->
+<div class="navbar">
+    Gestión de Productos
+</div>
+
+<!-- 🔥 VOLVER -->
+<a href="/admin" class="volver">← Volver al Panel</a>
+
+<div class="container">
+
+<a href="/admin/productos/nuevo" class="btn">➕ Nuevo Producto</a>
+
+<div class="grid">
+
+<% productos.forEach(p => { %>
+    <div class="card">
+
+        <div class="nombre"><%= p.nombre %></div>
+
+        <div><%= p.descripcion %></div>
+
+        <div class="precio">L. <%= p.precio %></div>
+        <p><strong>Categoría:</strong> <%= p.categoria || 'Sin categoría' %></p>
+
+        <!-- EDITAR -->
+        <a href="/admin/productos/editar/<%= p.id %>" class="btn-edit">
+            Editar
+        </a>
+
+        <!-- ELIMINAR -->
+        <form action="/admin/productos/eliminar" method="POST">
+            <input type="hidden" name="id" value="<%= p.id %>">
+            <button class="btn-delete">Eliminar</button>
+        </form>
+
+    </div>
+<% }) %>
+
+</div>
+
+</div>
+
+</body>
+</html>

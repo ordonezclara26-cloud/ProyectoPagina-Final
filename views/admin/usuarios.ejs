@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Usuarios</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+/* 🔥 NAVBAR */
+.navbar {
+    background: #111;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+}
+
+/* 🔥 BOTÓN VOLVER */
+.volver {
+    display:inline-block;
+    margin:15px;
+    padding:8px 15px;
+    background:black;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+/* 🔥 CONTENEDOR */
+.container {
+    padding: 20px;
+}
+
+/* 🔥 CARD */
+.card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+/* 🔥 BOTONES */
+button {
+    margin-top: 5px;
+    padding: 6px 10px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- 🔥 BARRA -->
+<div class="navbar">
+    Gestión de Usuarios
+</div>
+
+<!-- 🔥 VOLVER -->
+<a href="/admin" class="volver">← Volver al Panel</a>
+
+<div class="container">
+
+<% if (mensaje) { %>
+<div style="
+background: #16a34a;
+color: white;
+padding: 10px;
+margin-bottom: 15px;
+border-radius: 8px;
+text-align:center;
+">
+    <%= mensaje %>
+</div>
+<% } %>
+
+<h2>Usuarios registrados</h2>
+
+<% usuarios.forEach(u => { %>
+    <div class="card">
+
+        <strong><%= u.nombre %></strong> - <%= u.correo %><br>
+
+        Estado: 
+        <%= u.estado == 1 ? "Activo ✅" : "Bloqueado ❌" %>
+
+        <br><br>
+
+        <form action="/admin/usuarios/bloquear" method="POST">
+            <input type="hidden" name="id" value="<%= u.id %>">
+            <button>Bloquear</button>
+        </form>
+
+        <form action="/admin/usuarios/activar" method="POST">
+            <input type="hidden" name="id" value="<%= u.id %>">
+            <button>Activar</button>
+        </form>
+
+    </div>
+<% }) %>
+
+</div>
+
+</body>
+</html>
