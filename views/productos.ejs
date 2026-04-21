@@ -189,29 +189,34 @@ body {
 <% } %>
 
 <div class="grid">
-<% productos.forEach(p => { %>
-    <div class="card">
 
-        <!-- 🔥 IMAGEN CORREGIDA -->
-        <img src="/img/<%= p.imagen %>" 
-             onerror="this.src='https://picsum.photos/200'">
+<% if (productos && productos.length > 0) { %>
 
-        <p class="nombre"><%= p.nombre %></p>
-        <p><%= p.descripcion %></p>
-        <p class="precio">L. <%= p.precio %></p>
+    <% productos.forEach(p => { %>
+        <div class="card">
 
-        <div class="control-cantidad" data-id="<%= p.id %>">
+            <img src="/img/<%= p.imagen %>" 
+                 onerror="this.src='https://picsum.photos/200'">
 
-            <button class="btn-control menos">-</button>
+            <p class="nombre"><%= p.nombre %></p>
+            <p><%= p.descripcion %></p>
+            <p class="precio">L. <%= p.precio %></p>
 
-            <span class="cantidad">0</span>
-
-            <button class="btn-control mas">+</button>
+            <div class="control-cantidad" data-id="<%= p.id %>">
+                <button class="btn-control menos">-</button>
+                <span class="cantidad">0</span>
+                <button class="btn-control mas">+</button>
+            </div>
 
         </div>
+    <% }) %>
 
-    </div>
-<% }) %>
+<% } else { %>
+
+    <p style="text-align:center; width:100%;">No hay productos o error de conexión</p>
+
+<% } %>
+
 </div>
 
 <script>
