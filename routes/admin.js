@@ -82,24 +82,6 @@ router.get('/productos', verificarAdmin, (req, res) => {
     });
 });
 
-router.get('/productos', (req, res) => {
-
-    db.query("SELECT * FROM productos", (err, results) => {
-
-        if (err) {
-            console.log(err);
-            return res.send("Error al cargar productos");
-        }
-
-        res.render('producto', {
-            productos: results,
-            categorias: [],
-            mensaje: null
-        });
-
-    });
-
-});
 
 router.get('/productos/nuevo', verificarAdmin, (req, res) => {
 

@@ -49,6 +49,16 @@ button {
 <input type="text" name="descripcion" value="<%= producto.descripcion %>" required>
 
 <input type="number" name="precio" value="<%= producto.precio %>" required>
+<select name="categoria_id" style="width:100%; padding:10px; margin:10px 0; border-radius:5px;">
+    
+    <% categorias.forEach(c => { %>
+        <option value="<%= c.id %>" 
+            <%= producto.categoria_id == c.id ? 'selected' : '' %>>
+            <%= c.nombre %>
+        </option>
+    <% }) %>
+
+</select>
 
 <input type="text" name="imagen" value="<%= producto.imagen %>">
 
