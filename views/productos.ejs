@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Productos</title>
+
 
 <style>
 body {
@@ -15,43 +17,35 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 15px 20px;
     background: #111;
     color: white;
+    flex-wrap: wrap;
 }
 
 .logo img {
     height: 40px;
 }
 
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .nav-links a {
     color: white;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-/* FILTRO */
-.filtro {
-    text-align: center;
-    margin: 15px 0;
-}
-
-.filtro a {
     margin: 5px;
-    padding: 6px 12px;
-    background: #ddd;
-    border-radius: 5px;
     text-decoration: none;
-    color: black;
 }
 
 /* BUSCADOR */
 .search-box {
     display: flex;
+    margin-top: 5px;
 }
 
 .search-box input {
-    padding: 5px;
+    padding: 6px;
     border-radius: 5px 0 0 5px;
     border: none;
 }
@@ -60,13 +54,25 @@ body {
     border: none;
     background: #555;
     color: white;
-    padding: 5px 10px;
-    border-radius: 0 5px 5px 0;
+    padding: 6px 10px;
 }
 
-/* ICONO PRODUCTO */
-.producto {
-    font-size: 20px;
+/* FILTRO (CATEGORÍAS) */
+.filtro {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px;
+}
+
+.filtro a {
+    padding: 6px 12px;
+    background: #ddd;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
 }
 
 /* MENSAJE */
@@ -80,7 +86,6 @@ body {
     padding: 12px 25px;
     border-radius: 8px;
     font-weight: bold;
-    z-index: 9999;
 }
 
 /* GRID */
@@ -88,7 +93,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 15px;
-    padding: 20px;
+    padding: 15px;
 }
 
 /* CARD */
@@ -130,11 +135,33 @@ body {
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-.cantidad {
-    font-weight: bold;
+/* 📱 RESPONSIVE REAL */
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card img {
+        height: 110px;
+    }
+
+    .filtro {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filtro a {
+        width: 90%;
+        text-align: center;
+    }
 }
 </style>
 
@@ -153,22 +180,14 @@ body {
         <a href="/carrito">Carrito</a>
     </div>
 
-    <div class="search-box">
-        <form action="/buscar" method="GET" class="search-box">
-            <input type="text" name="q" placeholder="Buscar productos...">
-            <button type="submit">🔍</button>
-        </form>
-    </div>
-
-    <div class="producto">
-        📦
-    </div>
+    <form action="/buscar" method="GET" class="search-box">
+        <input type="text" name="q" placeholder="Buscar productos...">
+        <button type="submit">🔍</button>
+    </form>
 
 </div>
 
-<h1 style="text-align:center; margin-top:20px;">
-    Tienda de Productos
-</h1>
+<h1 style="text-align:center;">Tienda de Productos</h1>
 
 <div class="filtro">
     <a href="/productos">Todos</a>
@@ -213,14 +232,13 @@ body {
 
 <% } else { %>
 
-    <p style="text-align:center; width:100%;">No hay productos o error de conexión</p>
+    <p style="text-align:center; width:100%;">No hay productos</p>
 
 <% } %>
 
 </div>
 
 <script>
-
 document.querySelectorAll(".control-cantidad").forEach(control => {
 
     const id = control.getAttribute("data-id");
@@ -253,7 +271,6 @@ document.querySelectorAll(".control-cantidad").forEach(control => {
     });
 
 });
-
 </script>
 
 <script>

@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
-<title>Visas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visas</title>
 
 <style>
 body {
@@ -10,32 +11,58 @@ body {
     background: #f5f5f5;
 }
 
+/* NAVBAR */
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 15px 20px;
     background: #111;
     color: white;
+    flex-wrap: wrap;
 }
 
 .logo img {
     height: 40px;
 }
 
-.nav-links a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
 }
 
+.nav-links a {
+    color: white;
+    margin: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* TITULO */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* SUBTITULO */
+.subtitulo {
+    text-align: center;
+    max-width: 750px;
+    margin: 10px auto 20px;
+    color: #555;
+    font-size: 16px;
+    padding: 0 15px;
+}
+
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-    padding: 30px;
+    padding: 20px;
 }
 
+/* CARD */
 .card {
     background: #111;
     color: white;
@@ -55,12 +82,22 @@ body {
     margin-top: 10px;
     font-weight: bold;
 }
-.subtitulo {
-    text-align: center;
-    max-width: 750px;
-    margin: 10px auto 20px;
-    color: #555;
-    font-size: 16px;
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card img {
+        height: 140px;
+    }
 }
 </style>
 
@@ -77,14 +114,14 @@ body {
         <a href="/inicio">Inicio</a>
         <a href="/productos">Productos</a>
         <a href="/carrito">Carrito</a>
-
         <a href="/soporte">Soporte</a>
         <a href="/ciber">Ciber</a>
         <a href="/visas">Visas</a>
     </div>
 </div>
 
-<h1 style="text-align:center; margin-top:20px;">Gestión de Visas</h1>
+<h1>Gestión de Visas</h1>
+
 <p class="subtitulo">
 ¿Quieres viajar y no sabes por dónde empezar? Te asesoramos paso a paso en todo el proceso de tu visa de forma segura y confiable.
 </p>

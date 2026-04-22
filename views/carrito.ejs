@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrito</title>
-
 <style>
 body {
     font-family: Arial;
@@ -15,32 +15,41 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 15px 20px;
     background: #111;
     color: white;
+    flex-wrap: wrap;
 }
 
 .logo img {
     height: 40px;
 }
 
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .nav-links a {
     color: white;
-    margin: 0 10px;
+    margin: 5px;
     text-decoration: none;
 }
 
+/* ICONO CARRITO */
 .carrito {
     font-weight: bold;
+    margin-top: 5px;
 }
 
 /* CONTENIDO */
 .container {
-    padding: 30px;
+    padding: 20px;
     max-width: 800px;
     margin: auto;
 }
 
+/* CARD */
 .card {
     background: white;
     padding: 15px;
@@ -83,6 +92,39 @@ body {
     text-decoration:none;
     border-radius:6px;
 }
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    .btn-pagar {
+        width: 100%;
+    }
+}
+
+/* 🔥 FIX PARA QUE NO SE VEA PEQUEÑO */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* 🔥 EVITA QUE EL CONTENIDO SE ENCOJA */
+.container {
+    width: 100%;
+    box-sizing: border-box;
+}
 </style>
 
 </head>
@@ -106,9 +148,7 @@ body {
 
 </div>
 
-<h1 style="text-align:center; margin-top:20px;">
-    Tu Carrito de Compras
-</h1>
+<h1 style="text-align:center;">Tu Carrito de Compras</h1>
 
 <div class="container">
 
@@ -123,16 +163,15 @@ body {
 
     <h3><%= p.nombre %></h3>
 
-<p>Cantidad: <strong><%= p.cantidad %></strong></p>
+    <p>Cantidad: <strong><%= p.cantidad %></strong></p>
 
-<p>Precio unitario: L. <%= p.precio %></p>
+    <p>Precio unitario: L. <%= p.precio %></p>
 
-<p>
-Subtotal: 
-<strong>L. <%= p.precio * p.cantidad %></strong>
-</p>
+    <p>
+        Subtotal: 
+        <strong>L. <%= p.precio * p.cantidad %></strong>
+    </p>
 
-    <!-- SOLO ELIMINAR -->
     <form action="/carrito/eliminar" method="POST">
         <input type="hidden" name="id" value="<%= p.id %>">
         <button class="btn-eliminar">🗑 Eliminar</button>
@@ -147,8 +186,6 @@ Subtotal:
     <a href="/checkout">
         <button class="btn-pagar">Proceder a pagar</button>
     </a>
-
-    <br>
 </div>
 
 <% } %>
