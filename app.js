@@ -246,39 +246,33 @@ app.post('/compra', (req, res) => {
                             const cantidad = carrito[id];
                             const subtotal = producto.precio * cantidad;
 
-                            productosTexto += `• ${producto.nombre} (x${cantidad}) - L. ${subtotal}\n`;
+                            productosTexto += `• ${producto.nombre} x${cantidad} - L. ${subtotal}\n`;
                             total += subtotal;
                         }
                     }
 
                     const fechaTexto = new Date().toLocaleString();
 
-                    const mensaje = `
-==============================
-        SICOS
-   CONFIRMACIÓN DE PEDIDO
-==============================
+                    const mensaje = 
+`*SICOS - CONFIRMACIÓN DE PEDIDO*\n\n` +
 
-Código: ${codigo}
-Fecha: ${fechaTexto}
+`📄 Código: ${codigo}\n` +
+`📅 Fecha: ${fechaTexto}\n\n` +
 
-Cliente: ${nombre}
-Teléfono: ${telefono}
-Dirección: ${direccion}
+`👤 *Cliente*\n` +
+`Nombre: ${nombre}\n` +
+`Teléfono: ${telefono}\n` +
+`Dirección: ${direccion}\n\n` +
 
-------------------------------
-DETALLE DEL PEDIDO:
-${productosTexto}
-------------------------------
+`🛒 *DETALLE DEL PEDIDO*\n` +
+`${productosTexto}\n` +
 
-TOTAL: L. ${total}
+`💰 *TOTAL: L. ${total}*\n\n` +
 
-Envío: Mandadito
-Pago: Contra entrega
+`🚚 Envío: *Se calcula según zona*\n` +
+`💳 Pago: Contra entrega\n\n` +
 
-Gracias por su preferencia.
-Nos comunicaremos con usted.
-`;
+`Gracias por su compra 🙌`;
 
                     const telefonoEmpresa = "50494143259";
 
