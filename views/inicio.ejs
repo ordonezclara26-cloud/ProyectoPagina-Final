@@ -3,6 +3,8 @@
 <head>
 <title>Inicio</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
     margin: 0;
@@ -14,7 +16,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 30px;
+    padding: 10px 20px;
     background: #111;
     color: white;
 }
@@ -26,55 +28,58 @@ body {
 .nav-links {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .nav-links a {
     color: white;
-    margin: 0 8px;
+    margin: 5px;
     text-decoration: none;
     font-weight: bold;
-}
-
-.nav-links a:hover {
-    color: #f1c40f;
+    font-size: 14px;
 }
 
 /* HERO */
 .hero {
+    position: relative;
     height: 100vh;
-    background: url('/img/tienda.jpg') center top;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: url('/img/tienda.jpg') center center / cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* 🔥 FIX CLAVE */
 .overlay {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.6);
 }
 
+/* CONTENIDO */
 .hero-content {
-    position: absolute; 
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     color: white;
     text-align: center;
+    padding: 20px;
+    max-width: 90%;
 }
 
 .hero h1 {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: bold;
 }
 
 .hero p {
-    font-size: 15px;
+    font-size: 16px;
 }
 
 /* INFO */
 .info {
-    padding: 40px;
+    padding: 40px 20px;
     text-align: center;
 }
 
@@ -82,8 +87,29 @@ body {
 .contacto {
     background: #111;
     color: white;
-    padding: 30px;
+    padding: 30px 20px;
     text-align: center;
+}
+
+/* 📱 RESPONSIVE REAL */
+@media (max-width: 768px) {
+
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
 }
 </style>
 
@@ -111,6 +137,7 @@ body {
 <!-- HERO -->
 <div class="hero">
     <div class="overlay"></div>
+
     <div class="hero-content">
         <h1>ENCUENTRA LO QUE NECESITAS</h1>
         <p>Equipos tecnológicos, accesorios y soluciones informáticas en un solo lugar</p>
