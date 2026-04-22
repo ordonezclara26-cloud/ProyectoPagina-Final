@@ -254,25 +254,23 @@ app.post('/compra', (req, res) => {
                     const fechaTexto = new Date().toLocaleString();
 
                     const mensaje = 
-`*SICOS - CONFIRMACIÓN DE PEDIDO*\n\n` +
+`SICOS - CONFIRMACIÓN DE PEDIDO\n\n` +
 
-`📄 Código: ${codigo}\n` +
-`📅 Fecha: ${fechaTexto}\n\n` +
+`Código: ${codigo}\n` +
+`Fecha: ${fechaTexto}\n\n` +
 
-`👤 *Cliente*\n` +
+`CLIENTE\n` +
 `Nombre: ${nombre}\n` +
 `Teléfono: ${telefono}\n` +
 `Dirección: ${direccion}\n\n` +
 
-`🛒 *DETALLE DEL PEDIDO*\n` +
+`DETALLE DEL PEDIDO\n` +
 `${productosTexto}\n` +
 
-`💰 *TOTAL: L. ${total}*\n\n` +
+`Envío: Se calcula según zona\n` +
+`TOTAL: L. ${total}\n\n` +
 
-`🚚 Envío: *Se calcula según zona*\n` +
-`💳 Pago: Contra entrega\n\n` +
-
-`Gracias por su compra 🙌`;
+`Gracias por su compra`;
 
                     const telefonoEmpresa = "50494143259";
 
