@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const db = require('./config/db');
+const db = require('./config/db'); // ✔ SOLO ESTO
 const session = require('express-session');
 
 
