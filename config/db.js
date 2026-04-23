@@ -1,12 +1,16 @@
 const mysql = require('mysql2');
 
+const mysql = require('mysql2');
+
 const db = mysql.createConnection({
-    host: process.env.MYSQLHOST || 'roundhouse.proxy.rlwy.net',
-    user: process.env.MYSQLUSER || 'root',
-    password: process.env.MYSQLPASSWORD || 'TU_PASSWORD_REAL',
-    database: process.env.MYSQLDATABASE || 'railway',
-    port: process.env.MYSQLPORT || 38330
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
 });
+
+module.exports = db;
 
 db.connect(err => {
     if (err) {
