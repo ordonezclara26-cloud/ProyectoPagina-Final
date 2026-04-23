@@ -26,7 +26,13 @@ router.post('/login', (req, res) => {
 
     db.query("SELECT * FROM usuarios WHERE correo = ?", [correo], async (err, results) => {
 
-        if (results.length === 0) {
+        // 🔥 ESTA LÍNEA FALTABA
+        if (err) {
+            console.log("❌ Error DB:", err);
+            return res.send("Error del servidor");
+        }
+
+        if (!results || results.length === 0) {
             return res.render('login', {
                 error: "Usuario no existe ❌"
             });
@@ -40,7 +46,6 @@ router.post('/login', (req, res) => {
             });
         }
 
-        // 🔥 validar inactividad
         if (user.ultimo_login) {
             const dias = (new Date() - new Date(user.ultimo_login)) / (1000 * 60 * 60 * 24);
 
