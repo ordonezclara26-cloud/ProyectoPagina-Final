@@ -34,6 +34,13 @@ app.use('/admin', adminRoutes);
 
 // CLIENTE
 app.get('/', (req, res) => {
+
+    // 🔒 Si es admin app
+    if (process.env.ADMIN_APP === "true") {
+        return res.redirect('/admin/login');
+    }
+
+    // 🛒 Si es tienda normal
     res.render('inicio');
 });
 
