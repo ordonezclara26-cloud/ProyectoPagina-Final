@@ -75,7 +75,7 @@ button {
 
 <h2>Nuevo Producto</h2>
 
-<form action="/admin/productos/guardar" method="POST">
+<form action="/admin/productos/guardar" method="POST" enctype="multipart/form-data">
 
 <input type="text" name="nombre" placeholder="Nombre" required>
 
@@ -89,6 +89,8 @@ button {
         <option value="<%= c.id %>"><%= c.nombre %></option>
     <% }) %>
 </select>
+
+<input type="file" name="imagen" accept="image/*" required>
 
 <button type="submit">Guardar</button>
 

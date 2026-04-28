@@ -1,6 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/img');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
 
 // =======================
 // 🔒 PROTECCIÓN
@@ -94,15 +107,21 @@ router.get('/productos/nuevo', verificarAdmin, (req, res) => {
     });
 });
 
-router.post('/productos/guardar', verificarAdmin, (req, res) => {
+router.post('/productos/guardar', verificarAdmin, upload.single('imagen'), (req, res) => {
 
     const { nombre, descripcion, precio, categoria_id } = req.body;
 
+    const imagen = req.file ? req.file.filename : null;
+
     db.query(
-        "INSERT INTO productos (nombre, descripcion, precio, categoria_id) VALUES (?, ?, ?, ?)",
-        [nombre, descripcion, precio, categoria_id],
+        "INSERT INTO productos (nombre, descripcion, precio, categoria_id, imagen) VALUES (?, ?, ?, ?, ?)",
+        [nombre, descripcion, precio, categoria_id, imagen],
         (err) => {
-            if (err) return res.send('Error');
+            if (err) {
+                console.log("ERROR INSERT:", err);
+                return res.send('Error al guardar producto');
+            }
+
             res.redirect('/admin/productos');
         }
     );
