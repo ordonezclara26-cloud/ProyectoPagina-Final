@@ -5,137 +5,133 @@
     <title>Inicio</title>
 
 <style>
-
-/* 🔥 SCROLL SUAVE (AQUÍ VA) */
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-/* NAVBAR */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background: #111;
-    color: white;
-}
-
-.logo img {
-    height: 35px;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.nav-links a {
-    color: white;
-    margin: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-/* HERO */
-.hero {
-    position: relative;
-    height: 100vh;
-    background: url('/img/tienda.jpg') center center / cover no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* OVERLAY */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-}
-
-/* CONTENIDO */
-.hero-content {
-    position: relative;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    max-width: 90%;
-}
-
-.hero h1 {
-    font-size: 36px;
-    font-weight: bold;
-}
-
-.hero p {
-    font-size: 16px;
-}
-
-/* 🔥 BOTÓN */
-.btn-scroll {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #007BFF;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-/* 🔥 HOVER PRO */
-.btn-scroll:hover {
-    background: #0056b3;
-}
-
-/* INFO */
-.info {
-    padding: 40px 20px;
-    text-align: center;
-}
-
-/* CONTACTO */
-.contacto {
-    background: #111;
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-
-    .hero h1 {
-        font-size: 24px;
+    html {
+        scroll-behavior: smooth; /* Hace que al dar clic en "Ver más" la pantalla baje suavemente */
     }
 
-    .hero p {
-        font-size: 14px;
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
     }
 
+    /* BARRA DE NAVEGACIÓN (HEADER) */
     .navbar {
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background: #111;
+        color: white;
+    }
+
+    .logo img {
+        height: 35px;
     }
 
     .nav-links {
-        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
     }
-}
 
+    .nav-links a {
+        color: white;
+        margin: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    /* SECCIÓN HERO (IMPACTO VISUAL) */
+    .hero {
+        position: relative;
+        height: 100vh;
+        background: url('/img/tienda.jpg') center center / cover no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* OVERLAY: Capa oscura sobre la imagen para que el texto blanco sea legible */
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+    }
+
+    /* CONTENIDO */
+    .hero-content {
+        position: relative;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    /* BOTÓN */
+    .btn-scroll {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #007BFF;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    /* HOVER */
+    .btn-scroll:hover {
+        background: #0056b3;
+    }
+
+    /* SECCIONES DE INFORMACIÓN Y PIE DE PÁGINA */
+    .info {
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    /* CONTACTO */
+    .contacto {
+        background: #111;
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+
+        .hero h1 {
+            font-size: 24px;
+        }
+
+        .hero p {
+            font-size: 14px;
+        }
+
+        .navbar {
+            flex-direction: column; /* En celulares, el menú se apila verticalmente */
+            align-items: flex-start;
+        }
+
+        .nav-links {
+            margin-top: 10px;
+        }
+    }
 </style>
-
 </head>
 
 <body>

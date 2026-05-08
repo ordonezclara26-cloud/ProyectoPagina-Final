@@ -10,7 +10,7 @@ body {
     margin: 0;
 }
 
-/* 🔥 NAVBAR */
+/* NAVBAR */
 .navbar {
     background: #111;
     color: white;
@@ -18,7 +18,7 @@ body {
     font-weight: bold;
 }
 
-/* 🔥 BOTÓN VOLVER */
+/* BOTÓN VOLVER */
 .volver {
     display:inline-block;
     margin:15px;
@@ -29,12 +29,12 @@ body {
     border-radius:6px;
 }
 
-/* 🔥 CONTENEDOR */
+/* CONTENEDOR */
 .container {
     padding: 20px;
 }
 
-/* 🔥 CARD */
+/* CARD */
 .card {
     background: white;
     padding: 15px;
@@ -42,7 +42,7 @@ body {
     border-radius: 10px;
 }
 
-/* 🔥 BOTONES */
+/* BOTONES */
 button {
     margin-top: 5px;
     padding: 6px 10px;
@@ -57,12 +57,12 @@ button {
 
 <body>
 
-<!-- 🔥 BARRA -->
+<!-- BARRA -->
 <div class="navbar">
     Gestión de Usuarios
 </div>
 
-<!-- 🔥 VOLVER -->
+<!-- VOLVER -->
 <a href="/admin" class="volver">← Volver al Panel</a>
 
 <div class="container">
@@ -88,7 +88,7 @@ text-align:center;
         <strong><%= u.nombre %></strong> - <%= u.correo %><br>
 
         Estado: 
-        <%= u.estado == 1 ? "Activo ✅" : "Bloqueado ❌" %>
+        <%= u.estado == 1 ? "Activo " : "Bloqueado " %>
 
         <br><br>
 

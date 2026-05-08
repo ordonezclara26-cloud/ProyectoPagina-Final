@@ -1,12 +1,15 @@
+// IMPORTACIÓN DE MÓDULOS Y CONFIGURACIÓN
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
-const multer = require('multer');
+const db = require('../config/db'); // Conexión a la base de datos
+const multer = require('multer'); // Middleware para gestión de archivos (imágenes)
 const path = require('path');
 
+// CONFIGURACIÓN DE ALMACENAMIENTO DE IMÁGENES
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/img');
+        // Renombra el archivo con la fecha actual para evitar duplicados
+        cb(null, 'public/img'); // Carpeta donde se guardarán las fotos de productos
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -15,9 +18,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// =======================
-// 🔒 PROTECCIÓN
-// =======================
+// MIDDLEWARE DE PROTECCIÓN (SEGURIDAD)
+// Verifica que el usuario esté logueado y que sea Administrador (rol_id === 1)
 function verificarAdmin(req, res, next) {
 
     if (!req.session.usuario) {
@@ -28,19 +30,15 @@ function verificarAdmin(req, res, next) {
         return res.send('Acceso denegado');
     }
 
-    next();
+    next(); // Si todo es correcto, permite continuar a la ruta
 }
 
-// =======================
-// 🏠 DASHBOARD
-// =======================
+// DASHBOARD
 router.get('/', verificarAdmin, (req, res) => {
     res.render('admin/dashboard');
 });
 
-// =======================
-// 👥 USUARIOS
-// =======================
+// GESTIÓN DE USUARIOS (BLOQUEO Y ACTIVACIÓN)
 router.get('/usuarios', verificarAdmin, (req, res) => {
 
     const mensaje = req.session.mensaje;
@@ -76,11 +74,10 @@ router.post('/usuarios/activar', verificarAdmin, (req, res) => {
     });
 });
 
-// =======================
-// 📦 PRODUCTOS
-// =======================
+// GESTIÓN DE PRODUCTOS (CRUD MULTIMEDIA)
 router.get('/productos', verificarAdmin, (req, res) => {
 
+    // Consulta con JOIN para traer el nombre de la categoría en lugar de solo el ID
     db.query(`
         SELECT productos.*, categorias.nombre AS categoria
         FROM productos
@@ -107,6 +104,7 @@ router.get('/productos/nuevo', verificarAdmin, (req, res) => {
     });
 });
 
+// GUARDAR PRODUCTO: Usa 'upload.single' para procesar la imagen enviada
 router.post('/productos/guardar', verificarAdmin, upload.single('imagen'), (req, res) => {
 
     const { nombre, descripcion, precio, categoria_id } = req.body;
@@ -168,9 +166,7 @@ router.post('/productos/editar', verificarAdmin, (req, res) => {
     );
 });
 
-// =======================
-// 📂 CATEGORÍAS
-// =======================
+// CATEGORÍAS
 router.get('/categorias', verificarAdmin, (req, res) => {
 
     const mensaje = req.session.mensaje;
@@ -243,9 +239,7 @@ router.post('/categorias/editar', verificarAdmin, (req, res) => {
     );
 });
 
-// =======================
-// 📦 PEDIDOS (ARREGLADO)
-// =======================
+// GESTIÓN DE PEDIDOS (LÓGICA DE AGRUPACIÓN)
 router.get('/pedidos', verificarAdmin, (req, res) => {
 
     const buscar = req.query.buscar || "";
@@ -283,6 +277,7 @@ router.get('/pedidos', verificarAdmin, (req, res) => {
             return res.send('Error');
         }
 
+        // PROCESAMIENTO DE DATOS: Agrupa múltiples productos bajo un mismo ID de pedido
         const pedidos = {};
 
         results.forEach(r => {
@@ -311,9 +306,7 @@ router.get('/pedidos', verificarAdmin, (req, res) => {
     });
 });
 
-// =======================
-// 🔄 CAMBIAR ESTADO
-// =======================
+// CAMBIAR ESTADO
 router.post('/pedidos/estado', verificarAdmin, (req, res) => {
 
     const { id, estado } = req.body;
@@ -327,9 +320,7 @@ router.post('/pedidos/estado', verificarAdmin, (req, res) => {
     );
 });
 
-// =======================
-// ❌ ELIMINAR PEDIDO
-// =======================
+// ELIMINAR PEDIDO
 router.post('/pedidos/eliminar', verificarAdmin, (req, res) => {
 
     const id = req.body.id;
@@ -341,4 +332,5 @@ router.post('/pedidos/eliminar', verificarAdmin, (req, res) => {
     });
 });
 
+// EXPORTACIÓN DEL ENRUTADOR
 module.exports = router;

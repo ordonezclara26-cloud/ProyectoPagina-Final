@@ -1,90 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Panel Admin</title>
+    <title>Panel Admin</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #f4f6f9;
-}
+    /* CONFIGURACIÓN DE PANTALLA */
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: #f4f6f9;
+    }
 
-/* 🔥 NAVBAR PRO */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #111;
-    color: white;
-    padding: 15px 30px;
-}
+    /* NAVBAR: Barra superior de estado */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #111;
+        color: white;
+        padding: 15px 30px;
+    }
 
-.navbar h2 {
-    margin: 0;
-    font-size: 18px;
-}
+    .navbar h2 {
+        margin: 0;
+        font-size: 18px;
+    }
 
-.logout {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-}
+    .logout {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
 
-/* 🔥 CONTENIDO */
-.container {
-    padding: 30px;
-}
+    /* CONTENIDO */
+    .container {
+        padding: 30px;
+    }
 
-/* 🔥 TITULO */
-.title {
-    margin-bottom: 20px;
-}
+    /* TITULO */
+    .title {
+        margin-bottom: 20px;
+    }
 
-/* 🔥 GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-}
+    /* GRID ADAPTATIVO (Dashboard Layout) */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
 
-/* 🔥 CARD PRO */
-.card {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
-    transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    cursor: pointer;
-}
+    /* CARDS DE NAVEGACIÓN */
+    .card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        cursor: pointer;
+    }
 
-.card:hover {
-    transform: translateY(-5px);
-}
+    /* Efecto de elevación al pasar el mouse */
+    .card:hover {
+        transform: translateY(-5px);
+    }
 
-/* 🔥 ICONOS */
-.icon {
-    font-size: 35px;
-    margin-bottom: 10px;
-}
+    /* ICONOS */
+    .icon {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
 
-/* 🔥 COLORES DIFERENTES */
-.cat { background: #ff7a00; color: white; }
-.prod { background: #2563eb; color: white; }
-.ped { background: #16a34a; color: white; }
-.user { background: #9333ea; color: white; }
+    /* CÓDIGO DE COLORES (Identidad por Módulo) */
+    .cat { background: #ff7a00; color: white; }
+    .prod { background: #2563eb; color: white; }
+    .ped { background: #16a34a; color: white; }
+    .user { background: #9333ea; color: white; }
 
-.card h3 {
-    margin: 0;
-}
+    .card h3 {
+        margin: 0;
+    }
 </style>
-
 </head>
 
 <body>
 
-<!-- 🔥 NAVBAR -->
+<!-- NAVBAR -->
 <div class="navbar">
     <h2>Panel de Administración</h2>
     <a href="/auth/logout" class="logout">Cerrar sesión</a>

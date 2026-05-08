@@ -1,34 +1,36 @@
-console.log("ESTE ES EL APP CORRECTO 🔥");
-require('dotenv').config();
+// CONFIGURACIÓN E INICIALIZACIÓN
+console.log("ESTE ES EL APP CORRECTO");
+require('dotenv').config(); // Carga de variables de entorno (.env)
 
 const express = require('express');
 const app = express();
-const db = require('./config/db'); // ✔ SOLO ESTO
-const session = require('express-session');
+const db = require('./config/db'); // Importación de la conexión a la base de datos
+const session = require('express-session'); // Gestión de carritos y usuarios
 
 
-// CONFIG
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+// CONFIGURACIÓN DE MIDDLEWARES
+app.use(express.json()); // Permite recibir datos en formato JSON
+app.use(express.urlencoded({ extended: true })); // Permite recibir datos de formularios
+app.use(express.static('public')); // Define la carpeta para archivos (CSS, Imágenes, JS)
 
+// CONFIGURACIÓN DE SESIONES: Vital para que el carrito no se pierda al navegar
 app.use(session({
     secret: 'secreto123',
     resave: false,
     saveUninitialized: true
 }));
 
+// VARIABLES GLOBALES: Permite que la variable 'usuario' esté disponible en todos los archivos .ejs
 app.use((req, res, next) => {
     res.locals.usuario = req.session.usuario;
     next();
 });
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs'); // Motor de plantillas
 
-// RUTAS
+// SISTEMA DE RUTAS CENTRALIZADAS
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
-
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 
@@ -94,7 +96,8 @@ app.get('/productos', (req, res) => {
     });
 });
 
-// 🛒 AGREGAR
+// LÓGICA DEL CARRITO DE COMPRAS
+// AGREGAR: Almacena el ID del producto en el objeto de sesión 'carrito'
 app.post('/carrito/agregar', (req, res) => {
 
     const id = Number(req.body.id);
@@ -112,7 +115,7 @@ app.post('/carrito/agregar', (req, res) => {
     res.sendStatus(200);
 });
 
-// ➖ RESTAR
+// RESTAR
 app.post('/carrito/restar', (req, res) => {
 
     const id = Number(req.body.id);
@@ -129,7 +132,7 @@ app.post('/carrito/restar', (req, res) => {
     res.sendStatus(200);
 });
 
-// ❌ ELIMINAR
+// ELIMINAR
 app.post('/carrito/eliminar', (req, res) => {
 
     const id = Number(req.body.id);
@@ -141,7 +144,7 @@ app.post('/carrito/eliminar', (req, res) => {
     res.redirect('/carrito');
 });
 
-// 🛒 VER CARRITO
+// VER CARRITO: Cruza los IDs de la sesión con los datos de la DB para mostrar nombres y precios
 app.get('/carrito', (req, res) => {
 
     const carrito = req.session.carrito || {};
@@ -175,12 +178,12 @@ app.get('/carrito', (req, res) => {
     });
 });
 
-// 💳 CHECKOUT
+// CHECKOUT
 app.get('/checkout', (req, res) => {
     res.render('checkout');
 });
 
-// 💰 COMPRA FINAL (ARREGLADO Y PRO)
+// PROCESAMIENTO DE ORDENES Y GENERACIÓN DE FACTURA
 app.post('/compra', (req, res) => {
 
     const carrito = req.session.carrito || {};
@@ -192,6 +195,7 @@ app.post('/compra', (req, res) => {
         return res.redirect('/carrito');
     }
 
+    // GENERACIÓN DE CÓDIGO DE FACTURA ÚNICO (FAC-YYYYMMDD-NUM)
     db.query("SELECT COUNT(*) AS total FROM pedidos", (err, result) => {
 
         const numero = result[0].total + 1;
@@ -203,8 +207,9 @@ app.post('/compra', (req, res) => {
 
         const codigo = `FAC-${anio}${mes}${dia}-${numero.toString().padStart(5, '0')}`;
 
+        // INSERCIÓN EN TABLA 'PEDIDOS'
         db.query(
-            `INSERT INTO pedidos 
+            `INSERT INTO pedidos
             (codigo, nombre_cliente, correo_cliente, telefono, direccion, metodo_pago, metodo_envio, estado) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
             [
@@ -226,6 +231,7 @@ app.post('/compra', (req, res) => {
 
                 const pedidoId = result2.insertId;
 
+                // INSERCIÓN DE DETALLES: Registra cada producto comprado en 'detalle_pedido'
                 for (let id in carrito) {
                     const cantidad = carrito[id];
 
@@ -237,7 +243,7 @@ app.post('/compra', (req, res) => {
                     }
                 }
 
-                // 🔥 MENSAJE PROFESIONAL
+                // INTEGRACIÓN CON WHATSAPP: Construye el mensaje de confirmación automático
                 db.query("SELECT * FROM productos", (err3, productosDB) => {
 
                     let productosTexto = "";
@@ -258,7 +264,7 @@ app.post('/compra', (req, res) => {
 
                     const fechaTexto = new Date().toLocaleString();
 
-                    const mensaje = 
+                    const mensaje =
 `SICOS - CONFIRMACIÓN DE PEDIDO\n\n` +
 
 `Código: ${codigo}\n` +
@@ -281,6 +287,7 @@ app.post('/compra', (req, res) => {
 
                     const url = `https://wa.me/${telefonoEmpresa}?text=${encodeURIComponent(mensaje)}`;
 
+                    // Limpia el carrito después de la compra
                     req.session.carrito = {};
 
                     res.render('confirmacion', { codigo, url });
@@ -316,13 +323,13 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// 🔍 BUSCAR PRODUCTOS
+// BUSCAR PRODUCTOS
 app.get('/buscar', (req, res) => {
 
     const busqueda = req.query.q;
 
     const sql = `
-        SELECT * FROM productos 
+        SELECT * FROM productos
         WHERE nombre LIKE ? OR descripcion LIKE ?
     `;
 
@@ -356,7 +363,7 @@ app.get('/visas', (req, res) => {
     res.render('visas');
 });
 
-// SERVER
+// SERVIDOR
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

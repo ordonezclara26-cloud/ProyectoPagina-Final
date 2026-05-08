@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finalizar Compra</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra</title>
 
 <style>
-body {
-    font-family: Arial;
-    margin: 0;
-    background: #f4f6f9;
-}
+    body {
+        font-family: Arial;
+        margin: 0;
+        background: #f4f6f9;
+    }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    background: #111;
-    color: white;
-}
+    /* BARRA DE NAVEGACIÓN SIMPLIFICADA
+       En el checkout se reducen los links para evitar que el usuario abandone la compra */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 30px;
+        background: #111;
+        color: white;
+    }
 
-.logo img {
-    height: 40px;
-}
+    .logo img {
+        height: 40px;
+    }
 
-.container {
-    max-width: 400px;
-    margin: 50px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-}
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+    }
 
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
+    /* CAMPOS DE ENTRADA: Diseño estandarizado para facilitar la escritura */
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
 
-.btn-pagar {
-    width: 100%;
-    padding: 12px;
-    background: #16a34a;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    /* BOTÓN DE ACCIÓN FINAL */
+    .btn-pagar {
+        width: 100%;
+        padding: 12px;
+        background: #16a34a;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 </style>
 </head>
 
@@ -62,27 +66,29 @@ input, select {
 
 <div class="container">
 
-<h2>Finalizar Compra</h2>
+    <h2>Finalizar Compra</h2>
 
-<form action="/compra" method="POST">
+    <form action="/compra" method="POST">
 
-<input type="text" name="nombre" placeholder="Nombre completo" required>
-<input type="email" name="correo" placeholder="Correo electrónico" required>
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
 
-<input type="text" name="telefono" placeholder="Teléfono" required>
-<input type="text" name="direccion" placeholder="Dirección exacta" required>
+        <input type="email" name="correo" placeholder="Correo electrónico" required>
 
-<select name="envio" required>
-    <option value="mandadito">Mandadito</option>
-</select>
+        <input type="text" name="telefono" placeholder="Teléfono" required>
 
-<select name="metodo" required>
-    <option value="contra_entrega">Pago contra entrega</option>
-</select>
+        <input type="text" name="direccion" placeholder="Dirección exacta" required>
 
-<button class="btn-pagar">Confirmar pedido</button>
+        <select name="envio" required>
+            <option value="mandadito">Mandadito</option>
+        </select>
 
-</form>
+        <select name="metodo" required>
+            <option value="contra_entrega">Pago contra entrega</option>
+        </select>
+
+        <button class="btn-pagar">Confirmar pedido</button>
+
+    </form>
 
 </div>
 
