@@ -39,25 +39,6 @@
         text-decoration: none;
     }
 
-    /* BUSCADOR: Diseño compacto integrado en la navbar */
-    .search-box {
-        display: flex;
-        margin-top: 5px;
-    }
-
-    .search-box input {
-        padding: 6px;
-        border-radius: 5px 0 0 5px;
-        border: none;
-    }
-
-    .search-box button {
-        border: none;
-        background: #555;
-        color: white;
-        padding: 6px 10px;
-    }
-
     /* FILTRO (CATEGORÍAS) */
     .filtro {
         display: flex;
@@ -106,16 +87,29 @@
     transition: .2s;
 }
 
-.card:hover {
-    transform: translateY(-3px);
-}
-
     .card img {
         width: 100%;
         height: 130px;
         object-fit: cover;
         border-radius: 8px;
     }
+
+    .card-img{
+    overflow:hidden;
+    border-radius:12px;
+    background:#f8f8f8;
+}
+
+.card-img img{
+    width:100%;
+    height:180px;
+    object-fit:contain;
+    transition:.3s;
+}
+
+.card-img:hover img{
+    transform:scale(1.08);
+}
 
     .nombre {
     font-size: 17px;
@@ -141,17 +135,17 @@
 
     .productos-header{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:center;
+    gap:40px;
+
     padding:25px 30px;
     background:white;
     border-bottom:1px solid #ddd;
 }
 
 .productos-header h1{
-    margin:0;
-    font-size:28px;
-    font-weight:700;
+    min-width:320px;
 }
 
 .header-tools{
@@ -161,11 +155,19 @@
 }
 
 #buscadorTiempoReal{
-    width:400px;
-    padding:12px 15px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:15px;
+    width:500px;
+
+    padding:16px 20px;
+
+    border:none;
+
+    background:#f1f1f4;
+
+    border-radius:16px;
+
+    font-size:18px;
+
+    outline:none;
 }
 
 .carrito-icon{
@@ -183,6 +185,18 @@
 .sidebar{
     width:260px;
     flex-shrink:0;
+
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    border:1px solid #e8e8e8;
+}
+
+.sidebar h3{
+    font-size:32px;
+    font-weight:700;
+    margin-top:0;
+    margin-bottom:20px;
 }
 
 .productos-area{
@@ -198,6 +212,26 @@
 .filtro-vertical a{
     text-decoration:none;
     color:#222;
+    font-size:22px;
+    font-weight:600;
+    padding:10px;
+    border-radius:10px;
+    transition:.2s;
+}
+
+.filtro-vertical a:hover{
+    background:#050527;
+    color:white;
+}
+
+.btn-control{
+    background:#050527;
+    color:white;
+    border:none;
+    width:34px;
+    height:34px;
+    border-radius:8px;
+    cursor:pointer;
 }
 
 .precio-filtro{
@@ -248,11 +282,6 @@
         <a href="/inicio">Inicio</a>
         <a href="/carrito">Carrito</a>
     </div>
-
-    <form action="/buscar" method="GET" class="search-box">
-        <input type="text" name="q" placeholder="Buscar productos...">
-        <button type="submit">🔍</button>
-    </form>
 
 </div>
 
@@ -339,8 +368,12 @@
         <div class="card"
              data-nombre="<%= p.nombre.toLowerCase() %>">
 
-            <img src="/img/<%= p.imagen %>"
-                 onerror="this.src='https://picsum.photos/200'">
+           <div class="card-img">
+
+    <img src="/img/<%= p.imagen %>"
+         onerror="this.src='https://picsum.photos/200'">
+
+</div>
 
             <p class="nombre"><%= p.nombre %></p>
             <p><%= p.descripcion %></p>
