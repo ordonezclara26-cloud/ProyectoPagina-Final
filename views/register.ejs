@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        /* ESTILO DE FONDO ESTRUCTURAL */
+        body {
+            font-family: Arial;
+            margin: 0;
+
+            /* Reutilizamos la imagen de la tienda para mantener la identidad visual */
+            background: url('/img/tienda.jpg') no-repeat center center/cover;
+            height: 100vh;
+        }
+
+        /* CONTENEDOR DEL FORMULARIO (Card) */
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+        }
+
+        /* CAMPOS DE ENTRADA */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        /* BOTÓN DE ACCIÓN (Verde para indicar creación/positivo) */
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #38a169;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2f855a;
+        }
+
+        a {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Crear Cuenta</h2>
+
+    <!--REGISTRARSE -->
+    <form action="/auth/register" method="POST" autocomplete="off">
+        <input type="text" name="nombre" placeholder="Nombre" required autocomplete="off">
+        <input type="email" name="correo" placeholder="Correo" required autocomplete="off">
+        <input type="password" name="password" placeholder="Contraseña" required autocomplete="new-password">
+        <button type="submit">Registrarse</button>
+    </form>
+    <a href="/admin/login">Volver al login</a>
+</div>
+
+</body>
+</html>

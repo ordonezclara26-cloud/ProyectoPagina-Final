@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pedidos</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #111;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+}
+
+/* CONTENEDOR */
+.container {
+    padding: 30px;
+}
+
+/* BUSCADOR */
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    padding: 8px;
+    width: 200px;
+}
+
+.search-box button {
+    padding: 8px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* TITULO */
+.codigo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* INFO */
+.info p {
+    margin: 4px 0;
+}
+
+/* SEPARADOR */
+.hr {
+    margin: 15px 0;
+    border-top: 1px solid #ddd;
+}
+
+/* TOTAL */
+.total {
+    font-weight: bold;
+    color: #16a34a;
+    font-size: 16px;
+}
+
+/* ESTADO COLORES */
+.estado {
+    font-weight: bold;
+}
+
+.pendiente { color: red; }
+.confirmado { color: orange; }
+.encamino { color: blue; }
+.entregado { color: green; }
+
+/* BOTONES */
+.btn {
+    padding: 6px 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.btn-delete {
+    background: red;
+    color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+    GESTIÓN DE PEDIDOS
+</div>
+
+<a href="/admin" style="
+display:inline-block;
+margin:15px;
+padding:8px 15px;
+background:black;
+color:white;
+text-decoration:none;
+border-radius:6px;
+">
+← Volver al Panel
+</a>
+
+<div class="container">
+
+<h2>Pedidos registrados</h2>
+
+<!-- BUSCADOR -->
+<div class="search-box">
+    <form method="GET" action="/admin/pedidos">
+        <input type="text" name="buscar" placeholder="Buscar por código">
+        <button>Buscar</button>
+    </form>
+</div>
+
+<% for (let id in pedidos) { 
+   let estado = pedidos[id].estado || "Pendiente";
+   let estadoClass = estado.toLowerCase().replace(" ", "");
+%>
+
+<div class="card">
+
+    <div class="codigo">
+        Pedido: <%= pedidos[id].codigo %>
+    </div>
+
+    <div class="info">
+        <p><strong>Cliente:</strong> <%= pedidos[id].cliente %></p>
+        <p><strong>Correo:</strong> <%= pedidos[id].correo %></p>
+        <p><strong>Teléfono:</strong> <%= pedidos[id].telefono %></p>
+        <p><strong>Dirección:</strong> <%= pedidos[id].direccion %></p>
+
+        <p>
+            <strong>Estado:</strong> 
+            <span id="estado-texto-<%= id %>" class="estado <%= estadoClass %>">
+                <%= estado %>
+            </span>
+        </p>
+
+        <p><strong>Fecha:</strong> 
+            <%= new Date(pedidos[id].fecha).toLocaleString() %>
+        </p>
+    </div>
+
+    <div class="hr"></div>
+
+    <p><strong>Detalle del pedido:</strong></p>
+
+    <% pedidos[id].productos.forEach(p => { %>
+        <p>• <%= p.nombre %> - L. <%= p.precio %></p>
+    <% }) %>
+
+    <div class="hr"></div>
+
+    <p class="total">
+        Total: L. <%= pedidos[id].total %>
+    </p>
+
+    <!-- CAMBIAR ESTADO (SIN RECARGA) -->
+    <div>
+        <select onchange="cambiarEstado(<%= id %>, this.value)">
+
+            <option value="Pendiente" <%= estado === 'Pendiente' ? 'selected' : '' %>>Pendiente</option>
+
+            <option value="Confirmado" <%= estado === 'Confirmado' ? 'selected' : '' %>>Confirmado</option>
+
+            <option value="En camino" <%= estado === 'En camino' ? 'selected' : '' %>>En camino</option>
+
+            <option value="Entregado" <%= estado === 'Entregado' ? 'selected' : '' %>>Entregado</option>
+
+        </select>
+
+        <span id="msg-<%= id %>" style="margin-left:10px; color:green;"></span>
+    </div>
+
+    <!-- ELIMINAR -->
+    <form action="/admin/pedidos/eliminar" method="POST">
+        <input type="hidden" name="id" value="<%= id %>">
+        <button class="btn btn-delete">Eliminar</button>
+    </form>
+
+</div>
+
+<% } %>
+
+</div>
+
+<!-- SCRIPT PRO -->
+<script>
+function cambiarEstado(id, estado) {
+
+    fetch('/admin/pedidos/estado', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `id=${id}&estado=${estado}`
+    })
+    .then(res => res.text())
+    .then(() => {
+
+        // actualizar texto
+        const texto = document.getElementById('estado-texto-' + id);
+        texto.innerText = estado;
+
+        // cambiar color dinámico
+        texto.className = "estado " + estado.toLowerCase().replace(" ", "");
+
+        // mensaje visual
+        const msg = document.getElementById('msg-' + id);
+        msg.innerText = "✔";
+
+        setTimeout(() => {
+            msg.innerText = "";
+        }, 1500);
+
+    });
+}
+</script>
+
+</body>
+</html>

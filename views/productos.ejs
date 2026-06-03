@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+
+
+<style>
+    /* LAYOUT Y NAVEGACIÓN */
+    body {
+        font-family: Arial;
+        margin: 0;
+        background: #f5f5f5;
+    }
+
+    /* NAVBAR */
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 20px;
+        background: #111;
+        color: white;
+        flex-wrap: wrap;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .nav-links a {
+        color: white;
+        margin: 5px;
+        text-decoration: none;
+    }
+
+    /* BUSCADOR: Diseño compacto integrado en la navbar */
+    .search-box {
+        display: flex;
+        margin-top: 5px;
+    }
+
+    .search-box input {
+        padding: 6px;
+        border-radius: 5px 0 0 5px;
+        border: none;
+    }
+
+    .search-box button {
+        border: none;
+        background: #555;
+        color: white;
+        padding: 6px 10px;
+    }
+
+    /* FILTRO (CATEGORÍAS) */
+    .filtro {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin: 15px;
+    }
+
+    .filtro a {
+        padding: 6px 12px;
+        background: #ddd;
+        border-radius: 5px;
+        text-decoration: none;
+        color: black;
+        font-size: 14px;
+    }
+
+    /* MENSAJE */
+    .alerta {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #16a34a;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    /* GRID DE PRODUCTOS (Responsive) */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+
+    /* CARD */
+    .card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+    .card img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .nombre {
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+    .precio {
+    font-weight: 700;
+    color: #111;
+    font-size: 18px;
+}
+
+    /* CONTROLES DE CARRITO */
+    .control-cantidad {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .productos-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px 30px;
+    background:white;
+    border-bottom:1px solid #ddd;
+}
+
+.productos-header h1{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+}
+
+.header-tools{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+#buscadorTiempoReal{
+    width:400px;
+    padding:12px 15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.carrito-icon{
+    font-size:28px;
+    text-decoration:none;
+}
+
+.contenido-productos{
+    display:flex;
+    gap:30px;
+    padding:30px;
+    align-items:flex-start;
+}
+
+.sidebar{
+    width:260px;
+    flex-shrink:0;
+}
+
+.productos-area{
+    flex:1;
+}
+
+.filtro-vertical{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.filtro-vertical a{
+    text-decoration:none;
+    color:#222;
+}
+
+.precio-filtro{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:15px;
+}
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+
+        .navbar {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card img {
+            height: 110px;
+        }
+
+        .filtro {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .filtro a {
+            width: 90%;
+            text-align: center;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+
+    <div class="nav-links">
+        <a href="/inicio">Inicio</a>
+        <a href="/carrito">Carrito</a>
+    </div>
+
+    <form action="/buscar" method="GET" class="search-box">
+        <input type="text" name="q" placeholder="Buscar productos...">
+        <button type="submit">🔍</button>
+    </form>
+
+</div>
+
+<div class="productos-header">
+
+    <h1>Tienda de Productos</h1>
+
+    <div class="header-tools">
+
+        <input
+            type="text"
+            id="buscadorTiempoReal"
+            placeholder="Buscar productos..."
+        >
+
+        <a href="/carrito" class="carrito-icon">
+            🛒
+        </a>
+
+    </div>
+
+</div>
+
+<div class="contenido-productos">
+
+    <aside class="sidebar">
+
+        <h3>Categorías</h3>
+
+        <div class="filtro-vertical">
+
+            <a href="/productos">Todos</a>
+
+            <% if (categorias && categorias.length > 0) { %>
+
+                <% categorias.forEach(c => { %>
+
+                    <a href="/productos?categoria=<%= c.id %>">
+                        <%= c.nombre %>
+                    </a>
+
+                <% }) %>
+
+            <% } %>
+
+        </div>
+
+        <h3>Rango de Precio</h3>
+
+        <div class="precio-filtro">
+
+            <label>
+                <input type="checkbox">
+                Menos de L.500
+            </label>
+
+            <label>
+                <input type="checkbox">
+                Entre L.500 y L.1500
+            </label>
+
+            <label>
+                <input type="checkbox">
+                Más de L.1500
+            </label>
+
+        </div>
+
+    </aside>
+
+    <div class="productos-area">
+
+<% if (mensaje) { %>
+    <div id="mensaje" class="alerta">
+        <%= mensaje %>
+    </div>
+<% } %>
+
+<div class="grid">
+
+<% if (productos && productos.length > 0) { %>
+
+    <% productos.forEach(p => { %>
+        <div class="card"
+             data-nombre="<%= p.nombre.toLowerCase() %>">
+
+            <img src="/img/<%= p.imagen %>"
+                 onerror="this.src='https://picsum.photos/200'">
+
+            <p class="nombre"><%= p.nombre %></p>
+            <p><%= p.descripcion %></p>
+            <p class="precio">L. <%= p.precio %></p>
+
+            <div class="control-cantidad" data-id="<%= p.id %>">
+                <button class="btn-control menos">-</button>
+                <span class="cantidad">0</span>
+                <button class="btn-control mas">+</button>
+            </div>
+
+        </div>
+    <% }) %>
+
+<% } else { %>
+
+    <p style="text-align:center; width:100%;">No hay productos</p>
+
+<% } %>
+
+</div>
+</div>
+
+<script>
+document.querySelectorAll(".control-cantidad").forEach(control => {
+
+    const id = control.getAttribute("data-id");
+    const span = control.querySelector(".cantidad");
+
+    // 1. Obtener cantidad actual al cargar la página
+    fetch('/carrito/cantidad/' + id)
+        .then(res => res.json())
+        .then(data => span.innerText = data.cantidad);
+
+    // 2. Evento para sumar (+)
+    control.querySelector(".mas").addEventListener("click", () => {
+        fetch('/carrito/agregar', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'id=' + id
+        })
+        .then(() => fetch('/carrito/cantidad/' + id))
+        .then(res => res.json())
+        .then(data => span.innerText = data.cantidad);
+    });
+
+    // 3. Evento para restar (-)
+    control.querySelector(".menos").addEventListener("click", () => {
+        fetch('/carrito/restar', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'id=' + id
+        })
+        .then(() => fetch('/carrito/cantidad/' + id))
+        .then(res => res.json())
+        .then(data => span.innerText = data.cantidad);
+    });
+
+});
+</script>
+
+<script>
+setTimeout(() => {
+    const msg = document.getElementById("mensaje");
+    if (msg) msg.remove();
+}, 2000);
+</script>
+
+
+<script>
+
+const buscador = document.getElementById("buscadorTiempoReal");
+
+if(buscador){
+
+    buscador.addEventListener("input", () => {
+
+        const texto = buscador.value.toLowerCase();
+
+        document.querySelectorAll(".card").forEach(card => {
+
+            const nombre = card.dataset.nombre;
+
+            if(nombre.includes(texto)){
+                card.style.display = "";
+            }else{
+                card.style.display = "none";
+            }
+
+        });
+
+    });
+
+}
+
+</script>
+</body>
+</html>
