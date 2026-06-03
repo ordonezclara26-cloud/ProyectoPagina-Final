@@ -89,19 +89,6 @@
     flex-direction:column;
 }
 
-.control-cantidad{
-    margin-top:auto;
-}
-
-    .card img{
-    width:100%;
-    height:180px;
-    object-fit:contain;
-    border-radius:15px;
-
-    transition:.3s;
-}
-
     .card-img{
     overflow:hidden;
     border-radius:12px;
@@ -138,7 +125,7 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        margin-top: 10px;
+        margin-top: auto;
     }
 
     .productos-header{
@@ -374,7 +361,6 @@
              data-nombre="<%= p.nombre.toLowerCase() %>">
 
            <div class="card-img">
-
     <img src="/img/<%= p.imagen %>"
          onerror="this.src='https://picsum.photos/200'">
 
