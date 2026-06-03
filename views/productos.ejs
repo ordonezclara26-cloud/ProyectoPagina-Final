@@ -99,10 +99,16 @@
 
     /* CARD */
     .card {
-        background: white;
-        border-radius: 10px;
-        padding: 10px;
-    }
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
 
     .card img {
         width: 100%;
@@ -112,14 +118,17 @@
     }
 
     .nombre {
-        font-size: 14px;
-        margin-top: 5px;
-    }
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
 
     .precio {
-        font-weight: bold;
-        color: green;
-    }
+    font-weight: 700;
+    color: #111;
+    font-size: 18px;
+}
 
     /* CONTROLES DE CARRITO */
     .control-cantidad {
@@ -130,13 +139,73 @@
         margin-top: 10px;
     }
 
-    .btn-control {
-        background: black;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
+    .productos-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px 30px;
+    background:white;
+    border-bottom:1px solid #ddd;
+}
+
+.productos-header h1{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+}
+
+.header-tools{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+#buscadorTiempoReal{
+    width:400px;
+    padding:12px 15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.carrito-icon{
+    font-size:28px;
+    text-decoration:none;
+}
+
+.contenido-productos{
+    display:flex;
+    gap:30px;
+    padding:30px;
+    align-items:flex-start;
+}
+
+.sidebar{
+    width:260px;
+    flex-shrink:0;
+}
+
+.productos-area{
+    flex:1;
+}
+
+.filtro-vertical{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.filtro-vertical a{
+    text-decoration:none;
+    color:#222;
+}
+
+.precio-filtro{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:15px;
+}
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
@@ -187,19 +256,74 @@
 
 </div>
 
-<h1 style="text-align:center;">Tienda de Productos</h1>
+<div class="productos-header">
 
-<div class="filtro">
-    <a href="/productos">Todos</a>
+    <h1>Tienda de Productos</h1>
 
-    <% if (categorias && categorias.length > 0) { %>
-        <% categorias.forEach(c => { %>
-            <a href="/productos?categoria=<%= c.id %>">
-                <%= c.nombre %>
-            </a>
-        <% }) %>
-    <% } %>
+    <div class="header-tools">
+
+        <input
+            type="text"
+            id="buscadorTiempoReal"
+            placeholder="Buscar productos..."
+        >
+
+        <a href="/carrito" class="carrito-icon">
+            🛒
+        </a>
+
+    </div>
+
 </div>
+
+<div class="contenido-productos">
+
+    <aside class="sidebar">
+
+        <h3>Categorías</h3>
+
+        <div class="filtro-vertical">
+
+            <a href="/productos">Todos</a>
+
+            <% if (categorias && categorias.length > 0) { %>
+
+                <% categorias.forEach(c => { %>
+
+                    <a href="/productos?categoria=<%= c.id %>">
+                        <%= c.nombre %>
+                    </a>
+
+                <% }) %>
+
+            <% } %>
+
+        </div>
+
+        <h3>Rango de Precio</h3>
+
+        <div class="precio-filtro">
+
+            <label>
+                <input type="checkbox">
+                Menos de L.500
+            </label>
+
+            <label>
+                <input type="checkbox">
+                Entre L.500 y L.1500
+            </label>
+
+            <label>
+                <input type="checkbox">
+                Más de L.1500
+            </label>
+
+        </div>
+
+    </aside>
+
+    <div class="productos-area">
 
 <% if (mensaje) { %>
     <div id="mensaje" class="alerta">
@@ -212,7 +336,8 @@
 <% if (productos && productos.length > 0) { %>
 
     <% productos.forEach(p => { %>
-        <div class="card">
+        <div class="card"
+             data-nombre="<%= p.nombre.toLowerCase() %>">
 
             <img src="/img/<%= p.imagen %>"
                  onerror="this.src='https://picsum.photos/200'">
@@ -236,6 +361,7 @@
 
 <% } %>
 
+</div>
 </div>
 
 <script>
@@ -283,5 +409,33 @@ setTimeout(() => {
 }, 2000);
 </script>
 
+
+<script>
+
+const buscador = document.getElementById("buscadorTiempoReal");
+
+if(buscador){
+
+    buscador.addEventListener("input", () => {
+
+        const texto = buscador.value.toLowerCase();
+
+        document.querySelectorAll(".card").forEach(card => {
+
+            const nombre = card.dataset.nombre;
+
+            if(nombre.includes(texto)){
+                card.style.display = "";
+            }else{
+                card.style.display = "none";
+            }
+
+        });
+
+    });
+
+}
+
+</script>
 </body>
 </html>
