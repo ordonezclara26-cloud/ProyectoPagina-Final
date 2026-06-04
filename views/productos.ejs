@@ -379,20 +379,20 @@
 
         <div class="precio-filtro">
 
-            <label>
-                <input type="checkbox">
-                Menos de L.500
-            </label>
+           <label>
+    <input type="checkbox" class="filtro-precio" value="500">
+    Menos de L.500
+</label>
 
-            <label>
-                <input type="checkbox">
-                Entre L.500 y L.1500
-            </label>
+<label>
+    <input type="checkbox" class="filtro-precio" value="1500">
+    Entre L.500 y L.1500
+</label>
 
-            <label>
-                <input type="checkbox">
-                Más de L.1500
-            </label>
+<label>
+    <input type="checkbox" class="filtro-precio" value="1501">
+    Más de L.1500
+</label>
 
         </div>
 
@@ -412,7 +412,8 @@
 
     <% productos.forEach(p => { %>
         <div class="card"
-             data-nombre="<%= p.nombre.toLowerCase() %>">
+     data-nombre="<%= p.nombre.toLowerCase() %>"
+     data-precio="<%= p.precio %>">
 
            <div class="card-img">
     <img src="/img/<%= p.imagen %>"
@@ -531,7 +532,48 @@ if(btnMenu && sidebar){
     });
 
 }
+const filtrosPrecio = document.querySelectorAll(".filtro-precio");
 
+filtrosPrecio.forEach(check => {
+
+    check.addEventListener("change", () => {
+
+        document.querySelectorAll(".card").forEach(card => {
+
+            const precio = Number(card.dataset.precio);
+
+            let mostrar = true;
+
+            const menos500 =
+                document.querySelector('.filtro-precio[value="500"]').checked;
+
+            const entre =
+                document.querySelector('.filtro-precio[value="1500"]').checked;
+
+            const mas1500 =
+                document.querySelector('.filtro-precio[value="1501"]').checked;
+
+            if (menos500 || entre || mas1500) {
+
+                mostrar = false;
+
+                if (menos500 && precio < 500)
+                    mostrar = true;
+
+                if (entre && precio >= 500 && precio <= 1500)
+                    mostrar = true;
+
+                if (mas1500 && precio > 1500)
+                    mostrar = true;
+            }
+
+            card.style.display = mostrar ? "" : "none";
+
+        });
+
+    });
+
+});
 </script>
 </body>
 </html>
