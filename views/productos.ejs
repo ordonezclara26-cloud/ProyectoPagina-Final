@@ -79,44 +79,21 @@
     }
 
     /* CARD */
-    .card{
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    border:1px solid #e5e5e5;
-
-    display:flex;
-    flex-direction:column;
-}
-
-.card-img{
-    overflow:hidden;
-
-    height:220px;
+   .card-img{
+    background:#efeff1;
+    padding:25px;
+    border-bottom:1px solid #e5e5e5;
 
     display:flex;
     justify-content:center;
     align-items:center;
-
-    background:#f7f7f7;
-
-    border:1px solid #ececec;
-    border-radius:18px;
-
-    padding:15px;
-
-    box-shadow:
-        inset 0 0 0 1px #f4f4f4,
-        0 2px 8px rgba(0,0,0,.03);
 }
+
 
 .card-img img{
     width:100%;
-    height:170px;
-
+    height:180px;
     object-fit:contain;
-
-    transition:.3s ease;
 }
 
 .card-img img:hover{
@@ -252,32 +229,63 @@
     margin-top:15px;
 }
 
+.btn-menu{
+    display:none;
+    background:#050527;
+    color:white;
+    border:none;
+    width:45px;
+    height:45px;
+    border-radius:10px;
+    font-size:22px;
+    cursor:pointer;
+}
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
 
-        .navbar {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .card img {
-            height: 110px;
-        }
-
-        .filtro {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .filtro a {
-            width: 90%;
-            text-align: center;
-        }
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
     }
+
+    .productos-header{
+        gap:15px;
+        flex-wrap:wrap;
+        justify-content:flex-start;
+    }
+
+    .btn-menu{
+        display:block;
+    }
+
+    #buscadorTiempoReal{
+        width:100%;
+    }
+
+    .contenido-productos{
+        flex-direction:column;
+        padding:15px;
+    }
+
+    .sidebar{
+        display:none;
+        width:100%;
+        margin-top:0;
+    }
+
+    .sidebar.activo{
+        display:block;
+    }
+
+    .productos-area{
+        width:100%;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
 </style>
 </head>
 
@@ -297,6 +305,10 @@
 </div>
 
 <div class="productos-header">
+
+    <button id="btnMenu" class="btn-menu">
+        ☰
+    </button>
 
     <h1>Tienda de Productos</h1>
 
@@ -470,6 +482,18 @@ if(buscador){
             }
 
         });
+
+    });
+
+}
+const btnMenu = document.getElementById("btnMenu");
+const sidebar = document.querySelector(".sidebar");
+
+if(btnMenu && sidebar){
+
+    btnMenu.addEventListener("click", () => {
+
+        sidebar.classList.toggle("activo");
 
     });
 
