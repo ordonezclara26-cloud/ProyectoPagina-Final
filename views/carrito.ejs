@@ -34,10 +34,15 @@ body {
 
 .nav-links a {
     color: white;
-    margin: 5px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
+    margin-left: 25px;
+}
+
+.slogan {
+    font-size: 28px;
+    font-weight: bold;
 }
 
 /* ICONO CARRITO */
@@ -140,13 +145,14 @@ html, body {
         <img src="/img/logo.png">
     </div>
 
+    <div class="slogan">
+        Tecnología a tu alcance
+    </div>
+
     <div class="nav-links">
         <a href="/inicio">Inicio</a>
         <a href="/productos">Productos</a>
-    </div>
-
-    <div class="carrito">
-        🛒 <%= carritoCount %>
+        <a href="/carrito">Carrito (<%= carritoCount %>)</a>
     </div>
 
 </div>
