@@ -176,14 +176,27 @@ router.get('/categorias', verificarAdmin, (req, res) => {
     const mensaje = req.session.mensaje;
     req.session.mensaje = null;
 
+    const editarId = req.query.editar;
+
     db.query("SELECT * FROM categorias", (err, results) => {
+
         if (err) return res.send('Error');
+
+        let categoriaEditar = null;
+
+        if (editarId) {
+            categoriaEditar =
+                results.find(c => c.id == editarId);
+        }
 
         res.render('admin/categorias', {
             categorias: results,
-            mensaje: mensaje
+            mensaje,
+            categoriaEditar
         });
+
     });
+
 });
 
 router.post('/categorias/agregar', verificarAdmin, (req, res) => {
