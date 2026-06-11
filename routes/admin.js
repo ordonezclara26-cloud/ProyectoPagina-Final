@@ -264,6 +264,7 @@ router.post('/categorias/editar', verificarAdmin, (req, res) => {
 router.get('/pedidos', verificarAdmin, (req, res) => {
 
     const buscar = req.query.buscar || "";
+const estado = req.query.estado || "";
 
     let sql = `
         SELECT 
@@ -284,10 +285,21 @@ router.get('/pedidos', verificarAdmin, (req, res) => {
 
     let params = [];
 
-    if (buscar) {
-        sql += " WHERE p.codigo LIKE ?";
-        params.push(`%${buscar}%`);
-    }
+    let condiciones = [];
+
+if (buscar) {
+    condiciones.push("p.codigo LIKE ?");
+    params.push(`%${buscar}%`);
+}
+
+if (buscar) {
+    condiciones.push("RIGHT(p.codigo, 5) = ?");
+    params.push(buscar);
+}
+
+if (condiciones.length > 0) {
+    sql += " WHERE " + condiciones.join(" AND ");
+}
 
     sql += " ORDER BY p.id DESC";
 
