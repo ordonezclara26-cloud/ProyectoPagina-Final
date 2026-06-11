@@ -51,7 +51,11 @@ app.get('/admin/login', (req, res) => {
 app.get('/register', (req, res) => {
 
     if (!req.session.usuario) {
-        return res.send('Acceso denegado');
+
+        return res.render('login', {
+             error: 'Debe iniciar sesión con una cuenta autorizada para crear usuarios.'
+        });
+
     }
 
     res.render('register');
