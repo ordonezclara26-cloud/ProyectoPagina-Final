@@ -205,7 +205,7 @@ app.post('/compra', (req, res) => {
         const mes = String(fecha.getMonth() + 1).padStart(2, '0');
         const dia = String(fecha.getDate()).padStart(2, '0');
 
-        const codigo = `FAC-${anio}${mes}${dia}-${numero.toString().padStart(5, '0')}`;
+        const codigo = `PED-${anio}${mes}${dia}-${numero.toString().padStart(5, '0')}`;
 
         // INSERCIÓN EN TABLA 'PEDIDOS'
         db.query(
@@ -262,7 +262,31 @@ app.post('/compra', (req, res) => {
                         }
                     }
 
-                    const fechaTexto = new Date().toLocaleString();
+                    let costoEnvio = 0;
+
+if (envio === "juticalpa") {
+    costoEnvio = 60;
+}
+
+if (envio === "jutiquile") {
+    costoEnvio = 80;
+}
+
+if (envio === "catacamas") {
+    costoEnvio = 120;
+}
+
+total += costoEnvio;
+
+let destino = "";
+
+if (envio === "juticalpa") destino = "Juticalpa";
+if (envio === "jutiquile") destino = "Jutiquile";
+if (envio === "catacamas") destino = "Catacamas";
+
+                    const fechaTexto = new Date().toLocaleString('es-HN', {
+    timeZone: 'America/Tegucigalpa'
+});
 
                     const mensaje =
 `SICOS - CONFIRMACIÓN DE PEDIDO\n\n` +
@@ -278,10 +302,11 @@ app.post('/compra', (req, res) => {
 `DETALLE DEL PEDIDO\n` +
 `${productosTexto}\n` +
 
-`Envío: Se calcula según zona\n` +
-`TOTAL: L. ${total}\n\n` +
+`Destino de entrega: ${destino}\n` +
+`Costo de envío: L. ${costoEnvio}\n` +
+`Total a pagar: L. ${total}\n\n` +
 
-`Gracias por su compra`;
+`Pedido pendiente de confirmación`;
 
                     const telefonoEmpresa = "50494143259";
 

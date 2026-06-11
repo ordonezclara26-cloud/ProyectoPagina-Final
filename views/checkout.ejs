@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Compra</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png">
 
 <style>
     body {
@@ -66,6 +67,10 @@
 
 <div class="container">
 
+    <h3 style="text-align:center; color:#666; margin-top:0;">
+        Resumen del Pedido
+    </h3>
+
     <h2>Finalizar Compra</h2>
 
     <form action="/compra" method="POST">
@@ -79,8 +84,18 @@
         <input type="text" name="direccion" placeholder="Dirección exacta" required>
 
         <select name="envio" required>
-            <option value="mandadito">Mandadito</option>
-        </select>
+    <option value="juticalpa">
+        Mandadito Juticalpa (L.60)
+    </option>
+
+    <option value="jutiquile">
+        Mandadito Jutiquile (L.80)
+    </option>
+
+    <option value="catacamas">
+        Mandadito Catacamas (L.120)
+    </option>
+</select>
 
         <select name="metodo" required>
             <option value="contra_entrega">Pago contra entrega</option>
