@@ -229,19 +229,6 @@ router.post('/categorias/eliminar', verificarAdmin, (req, res) => {
     });
 });
 
-router.get('/categorias/editar/:id', verificarAdmin, (req, res) => {
-
-    const id = req.params.id;
-
-    db.query("SELECT * FROM categorias WHERE id = ?", [id], (err, results) => {
-        if (err) return res.send('Error');
-
-        res.render('admin/editarCategoria', {
-            categoria: results[0]
-        });
-    });
-});
-
 router.post('/categorias/editar', verificarAdmin, (req, res) => {
 
     const { id, nombre, descripcion } = req.body;
