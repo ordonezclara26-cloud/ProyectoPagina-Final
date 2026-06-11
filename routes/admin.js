@@ -4,6 +4,7 @@ const router = express.Router();
 const db = require('../config/db'); // Conexión a la base de datos
 const multer = require('multer'); // Middleware para gestión de archivos (imágenes)
 const path = require('path');
+const PDFDocument = require('pdfkit');
 
 // CONFIGURACIÓN DE ALMACENAMIENTO DE IMÁGENES
 const storage = multer.diskStorage({
@@ -337,6 +338,126 @@ if (condiciones.length > 0) {
             pedidos: pedidos
         });
     });
+});
+
+router.get('/pedidos/pdf', verificarAdmin, (req, res) => {
+
+    const sql = `
+        SELECT
+            codigo,
+            fecha,
+            nombre_cliente,
+            correo_cliente,
+            telefono,
+            direccion,
+            estado
+        FROM pedidos
+        ORDER BY id DESC
+    `;
+
+    db.query(sql, (err, results) => {
+
+        if (err) {
+            console.log(err);
+            return res.send('Error al generar PDF');
+        }
+
+        const PDFDocument = require('pdfkit');
+        const doc = new PDFDocument({ margin: 40 });
+
+        // FECHA ACTUAL
+        const fechaActual = new Date();
+
+        const nombreArchivo =
+        `Pedidos_SICOS_${
+            fechaActual.getFullYear()
+        }-${
+            String(fechaActual.getMonth() + 1).padStart(2, '0')
+        }-${
+            String(fechaActual.getDate()).padStart(2, '0')
+        }.pdf`;
+
+        // CABECERAS PDF
+        res.setHeader(
+            'Content-Disposition',
+            `attachment; filename="${nombreArchivo}"`
+        );
+
+        res.setHeader(
+            'Content-Type',
+            'application/pdf'
+        );
+
+        doc.pipe(res);
+
+        // TITULO
+        doc
+        .fontSize(18)
+        .text(
+            'REPORTE DE PEDIDOS - SICOS',
+            { align: 'center' }
+        );
+
+        doc.moveDown();
+
+        // FECHA Y HORA
+        doc
+        .fontSize(11)
+        .text(
+            `Fecha de generación: ${fechaActual.toLocaleDateString('es-HN')}`,
+            { align: 'right' }
+        );
+
+        doc
+        .text(
+            `Hora de generación: ${fechaActual.toLocaleTimeString('es-HN')}`,
+            { align: 'right' }
+        );
+
+        doc
+        .text(
+            `Total de pedidos: ${results.length}`,
+            { align: 'right' }
+        );
+
+        doc.moveDown();
+        doc.moveDown();
+
+        // PEDIDOS
+        results.forEach((p) => {
+
+            doc
+            .fontSize(12)
+            .text(`Código: ${p.codigo}`);
+
+            doc.text(`Cliente: ${p.nombre_cliente}`);
+
+            doc.text(`Correo: ${p.correo_cliente}`);
+
+            doc.text(`Teléfono: ${p.telefono}`);
+
+            doc.text(`Dirección: ${p.direccion}`);
+
+            doc.text(`Estado: ${p.estado}`);
+
+            doc.text(
+                `Fecha Pedido: ${new Date(p.fecha).toLocaleString('es-HN')}`
+            );
+
+            doc.moveDown();
+
+            doc.text(
+                '----------------------------------------------------'
+            );
+
+            doc.moveDown();
+
+        });
+
+        doc.end();
+
+    });
+
 });
 
 // CAMBIAR ESTADO

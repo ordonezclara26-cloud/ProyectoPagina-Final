@@ -116,6 +116,16 @@ body {
     background: #666;
     color:white;
 }
+
+.btn-pdf{
+    display:inline-block;
+    margin-bottom:20px;
+    padding:8px 15px;
+    background:#050527;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
 </style>
 
 </head>
@@ -155,6 +165,10 @@ border-radius:6px;
 Total de pedidos:
 <strong><%= Object.keys(pedidos).length %></strong>
 </p>
+
+<a href="/admin/pedidos/pdf" class="btn-pdf">
+    📄 Exportar PDF
+</a>
 
 <!-- BUSCADOR -->
 <div class="search-box">
