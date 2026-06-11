@@ -390,32 +390,35 @@ router.get('/pedidos/pdf', verificarAdmin, (req, res) => {
 
         doc.pipe(res);
 
+        // FECHA HONDURAS
+        const fechaHN = new Date();
+
         // TITULO
         doc
-        .fontSize(18)
-        .text(
-            'REPORTE DE PEDIDOS - SICOS',
-            { align: 'center' }
-        );
+            .fontSize(18)
+            .text(
+                'REPORTE DE PEDIDOS - SICOS',
+                { align: 'center' }
+            );
 
         doc.moveDown();
 
-        // FECHA Y HORA
-        doc
-        .fontSize(11)
-        .text(
-            `Fecha de generación: ${fechaActual.toLocaleDateString('es-HN')}`,
+        // INFORMACIÓN DEL REPORTE
+        doc.text(
+            `Fecha de generación: ${fechaHN.toLocaleDateString('es-HN', {
+                timeZone: 'America/Tegucigalpa'
+            })}`,
             { align: 'right' }
         );
 
-        doc
-        .text(
-            `Hora de generación: ${fechaActual.toLocaleTimeString('es-HN')}`,
+        doc.text(
+            `Hora de generación: ${fechaHN.toLocaleTimeString('es-HN', {
+                timeZone: 'America/Tegucigalpa'
+            })}`,
             { align: 'right' }
         );
 
-        doc
-        .text(
+        doc.text(
             `Total de pedidos: ${results.length}`,
             { align: 'right' }
         );
@@ -427,8 +430,8 @@ router.get('/pedidos/pdf', verificarAdmin, (req, res) => {
         results.forEach((p) => {
 
             doc
-            .fontSize(12)
-            .text(`Código: ${p.codigo}`);
+                .fontSize(12)
+                .text(`Código: ${p.codigo}`);
 
             doc.text(`Cliente: ${p.nombre_cliente}`);
 
@@ -441,7 +444,9 @@ router.get('/pedidos/pdf', verificarAdmin, (req, res) => {
             doc.text(`Estado: ${p.estado}`);
 
             doc.text(
-                `Fecha Pedido: ${new Date(p.fecha).toLocaleString('es-HN')}`
+                `Fecha Pedido: ${new Date(p.fecha).toLocaleString('es-HN', {
+                    timeZone: 'America/Tegucigalpa'
+                })}`
             );
 
             doc.moveDown();
