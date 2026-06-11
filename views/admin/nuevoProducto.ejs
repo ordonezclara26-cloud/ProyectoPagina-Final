@@ -43,13 +43,21 @@
     }
 
     /* INPUTS */
-    input, select {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
+    input,
+select,
+textarea{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:5px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
 
     /* BOTÓN DE ACCIÓN */
     button {
@@ -60,6 +68,7 @@
         border: none;
         border-radius: 5px;
         margin-top: 10px;
+        cursor:pointer;
     }
 
     /* VOLVER */
@@ -72,6 +81,22 @@
         text-decoration: none;
         border-radius: 6px;
     }
+
+    small{
+display:block;
+color:red;
+font-size:13px;
+margin-top:-5px;
+margin-bottom:8px;
+}
+
+.volver:hover{
+    background:#333;
+}
+
+button:hover{
+    background:#333;
+}
 </style>
 </head>
 
@@ -98,27 +123,134 @@
 <div class="container">
     <h2>Nuevo Producto</h2>
 
-    <form action="/admin/productos/guardar" method="POST" enctype="multipart/form-data">
+   <form
+action="/admin/productos/guardar"
+method="POST"
+enctype="multipart/form-data"
+onsubmit="return validarProducto()"
+novalidate
+>
 
-        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input
+type="text"
+id="nombre"
+name="nombre"
+placeholder="Nombre">
 
-        <input type="text" name="descripcion" placeholder="Descripción" required>
+<small id="errNombre"></small>
 
-        <input type="number" name="precio" placeholder="Precio" required>
 
-        <select name="categoria_id" required>
-            <option value="">Seleccione categoría</option>
-            <% categorias.forEach(c => { %>
-                <option value="<%= c.id %>"><%= c.nombre %></option>
-            <% }) %>
-        </select>
+<textarea
+id="descripcion"
+name="descripcion"
+placeholder="Descripción"></textarea>
 
-       <input type="file" name="imagen" accept="image/*" required>
+<small id="errDescripcion"></small>
 
+
+<input
+type="number"
+id="precio"
+name="precio"
+placeholder="Precio">
+
+<small id="errPrecio"></small>
+
+
+<select
+id="categoria_id"
+name="categoria_id">
+
+    <option value="">Seleccione categoría</option>
+
+    <% categorias.forEach(c => { %>
+        <option value="<%= c.id %>">
+            <%= c.nombre %>
+        </option>
+    <% }) %>
+
+</select>
+
+<small id="errCategoria"></small>
+
+
+<input
+type="file"
+id="imagen"
+name="imagen"
+accept="image/*">
+
+<small id="errImagen"></small>
        <button type="submit">Guardar</button>
 
     </form>
 </div>
+<script>
 
+function validarProducto(){
+
+let ok = true;
+
+document.getElementById("errNombre").innerHTML="";
+document.getElementById("errDescripcion").innerHTML="";
+document.getElementById("errPrecio").innerHTML="";
+document.getElementById("errCategoria").innerHTML="";
+document.getElementById("errImagen").innerHTML="";
+
+const nombre =
+document.getElementById("nombre").value.trim();
+
+const descripcion =
+document.getElementById("descripcion").value.trim();
+
+const precio =
+document.getElementById("precio").value;
+
+const categoria =
+document.getElementById("categoria_id").value;
+
+const imagen =
+document.getElementById("imagen").value;
+
+if(nombre === ""){
+document.getElementById("errNombre").innerHTML =
+"Ingrese nombre";
+ok = false;
+}
+
+if(descripcion === ""){
+document.getElementById("errDescripcion").innerHTML =
+"Ingrese descripción";
+ok = false;
+}
+
+if(precio === ""){
+document.getElementById("errPrecio").innerHTML =
+"Ingrese precio";
+ok = false;
+}
+else if(parseFloat(precio) <= 0){
+document.getElementById("errPrecio").innerHTML =
+"El precio debe ser mayor que cero";
+ok = false;
+}
+
+if(categoria === ""){
+document.getElementById("errCategoria").innerHTML =
+"Seleccione categoría";
+ok = false;
+}
+
+if(imagen === ""){
+document.getElementById("errImagen").innerHTML =
+"Seleccione una imagen";
+ok = false;
+}
+
+return ok;
+
+}
+
+</script>
 </body>
 </html>
