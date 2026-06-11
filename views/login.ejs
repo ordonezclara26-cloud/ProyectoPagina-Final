@@ -86,6 +86,13 @@ top:50%;
 transform:translateY(-50%);
 cursor:pointer;
 }
+
+small{
+display:block;
+color:red;
+margin-top:5px;
+font-size:13px;
+}
 </style>
 </head>
 
@@ -112,24 +119,39 @@ cursor:pointer;
         </div>
         <% } %>
 
-        <form action="/auth/login" method="POST">
-            <input type="email" name="correo" placeholder="Correo" required>
-            <div class="password-box">
+        <form
+action="/auth/login"
+method="POST"
+onsubmit="return validarLogin()"
+novalidate
+>
+
+<input
+type="email"
+id="correo"
+name="correo"
+placeholder="Correo">
+
+<small id="errCorreo"></small>
+
+<div class="password-box">
 
 <input
 type="password"
 name="password"
-id="password"
-required
->
+id="password">
+
+<small id="errPass"></small>
 
 <span onclick="togglePassword()">
 👁
 </span>
 
 </div>
-            <button type="submit">Ingresar</button>
-        </form>
+
+<button type="submit">Ingresar</button>
+
+</form>
 
         <a href="/register">Crear cuenta</a>
     </div>
@@ -148,6 +170,37 @@ input.type==="password"
 "text"
 :
 "password";
+
+}
+
+</script>
+
+<script>
+
+function validarLogin(){
+
+let ok=true;
+
+document.getElementById("errCorreo").innerHTML="";
+document.getElementById("errPass").innerHTML="";
+
+const correo =
+document.getElementById("correo").value.trim();
+
+const pass =
+document.getElementById("password").value;
+
+if(correo===""){
+document.getElementById("errCorreo").innerHTML="Ingrese correo";
+ok=false;
+}
+
+if(pass===""){
+document.getElementById("errPass").innerHTML="Ingrese contraseña";
+ok=false;
+}
+
+return ok;
 
 }
 
