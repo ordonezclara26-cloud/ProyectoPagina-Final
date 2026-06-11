@@ -6,22 +6,24 @@
     <style>
         /* ESTILO DE FONDO ESTRUCTURAL */
         body {
-            font-family: Arial;
-            margin: 0;
+    font-family: Arial;
+    margin: 0;
+    background: url('/img/tienda.jpg') no-repeat center center/cover;
+    height: 100vh;
 
-            /* Reutilizamos la imagen de la tienda para mantener la identidad visual */
-            background: url('/img/tienda.jpg') no-repeat center center/cover;
-            height: 100vh;
-        }
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
         /* CONTENEDOR DEL FORMULARIO (Card) */
-        .container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            width: 300px;
-            text-align: center;
-        }
+    .container{
+    background:#fff;
+    padding:40px;
+    border-radius:15px;
+    width:300px;
+    text-align:center;
+}
 
         /* CAMPOS DE ENTRADA */
         input {
@@ -53,30 +55,153 @@
             text-decoration: none;
             color: #333;
         }
-        form {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            width: 300px;
-            margin: auto;
-            margin-top: 100px;
-        }
-    </style>
+
+        .password-box{
+position:relative;
+}
+
+.password-box input{
+width:100%;
+box-sizing:border-box;
+}
+
+.password-box span{
+position:absolute;
+right:15px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+}
+
+small{
+display:block;
+color:red;
+margin-top:5px;
+font-size:13px;
+}
+</style>
 </head>
 <body>
 
 <div class="container">
     <h2>Crear Cuenta</h2>
+    <% if (typeof error !== 'undefined') { %>
+
+<div style="
+background:#dc2626;
+color:white;
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
+">
+<%= error %>
+</div>
+
+<% } %>
 
     <!--REGISTRARSE -->
-    <form action="/auth/register" method="POST" autocomplete="off">
-        <input type="text" name="nombre" placeholder="Nombre" required autocomplete="off">
-        <input type="email" name="correo" placeholder="Correo" required autocomplete="off">
-        <input type="password" name="password" placeholder="Contraseña" required autocomplete="new-password">
+    <form
+action="/auth/register"
+method="POST"
+onsubmit="return validarRegistro()"
+>
+<input
+type="text"
+id="nombre"
+name="nombre"
+placeholder="Nombre"
+autocomplete="off"
+required>
+
+<small id="errNombre"></small>
+
+<input
+type="email"
+id="correo"
+name="correo"
+placeholder="Correo"
+autocomplete="off"
+required>
+
+<small id="errCorreo"></small>
+
+<div class="password-box">
+
+<input
+type="password"
+name="password"
+id="password"
+required
+>
+
+<small id="errPass"></small>
+
+<span onclick="togglePassword()">
+👁
+</span>
+
+</div>
         <button type="submit">Registrarse</button>
     </form>
     <a href="/admin/login">Volver al login</a>
 </div>
 
+
+<script>
+
+function togglePassword(){
+
+const input=
+document.getElementById("password");
+
+input.type=
+input.type==="password"
+?
+"text"
+:
+"password";
+
+}
+
+</script>
+<script>
+
+function validarRegistro(){
+
+let ok=true;
+
+errNombre.innerHTML="";
+errCorreo.innerHTML="";
+errPass.innerHTML="";
+
+const nombre =
+document.getElementById("nombre").value.trim();
+
+const correo =
+document.getElementById("correo").value.trim();
+
+const pass =
+document.getElementById("password").value;
+
+if(nombre===""){
+errNombre.innerHTML="Ingrese nombre";
+ok=false;
+}
+
+if(correo===""){
+errCorreo.innerHTML="Ingrese correo";
+ok=false;
+}
+
+if(pass.length<6){
+errPass.innerHTML="Mínimo 6 caracteres";
+ok=false;
+}
+
+return ok;
+
+}
+
+</script>
 </body>
 </html>

@@ -8,21 +8,41 @@ const bcrypt = require('bcrypt');
 //REGISTRO DE ADMINISTRADORES
 //Esta ruta convierte contraseñas planas en 'hashes' antes de guardarlas.
 router.post('/register', async (req, res) => {
-    const { nombre, correo, password } = req.body;
 
-    // Generamos el HASH: El '10' es el costo (salt rounds), que hace el cifrado más robusto.
-    // Nunca guardamos la contraseña real, solo su versión cifrada.
-    const hash = await bcrypt.hash(password, 10);
+const { nombre, correo, password } = req.body;
 
-    db.query(
-        "INSERT INTO usuarios (nombre, correo, password, rol_id, estado, ultimo_login) VALUES (?, ?, ?, 1, 1, NOW())",
-        [nombre, correo, hash],
-        (err) => {
-            if (err) return res.send('Error');
+const hash = await bcrypt.hash(password, 10);
 
-            res.redirect('/admin/login');
-        }
-    );
+db.query(
+"SELECT id FROM usuarios WHERE correo=?",
+[correo],
+async (err, data) => {
+
+if (err) return res.send("Error");
+
+if (data.length > 0) {
+
+return res.render('register', {
+error: "Correo ya registrado"
+});
+
+}
+
+db.query(
+"INSERT INTO usuarios (nombre, correo, password, rol_id, estado, ultimo_login) VALUES (?, ?, ?, 1, 1, NOW())",
+[nombre, correo, hash],
+(err) => {
+
+if (err) return res.send("Error");
+
+res.redirect('/admin/login');
+
+}
+);
+
+}
+);
+
 });
 
 //LOGUEO DE USUARIOS (SISTEMA DE SEGURIDAD)
