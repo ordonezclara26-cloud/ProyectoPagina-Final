@@ -42,17 +42,17 @@ body {
 /* BUSCADOR */
 .search-box form{
     display:flex;
-    gap:15px;
     align-items:center;
+    gap:20px;
     flex-wrap:wrap;
-}
-
-.search-box select{
-    padding:8px;
 }
 
 .search-box input{
     width:250px;
+}
+
+.search-box select{
+    min-width:180px;
 }
 
 .search-box button {
@@ -163,7 +163,7 @@ Total de pedidos:
         <input
             type="text"
             name="buscar"
-            placeholder="Buscar Pedido"
+            placeholder="Buscar Código del Pedido"
         >
 
         <select name="estado">
