@@ -68,10 +68,14 @@ router.post('/usuarios/activar', verificarAdmin, (req, res) => {
 
     const id = req.body.id;
 
-    db.query("UPDATE usuarios SET estado = 1 WHERE id = ?", [id], () => {
-        req.session.mensaje = "Usuario activado";
-        res.redirect('/admin/usuarios');
-    });
+    db.query(
+        "UPDATE usuarios SET estado = 1, ultimo_login = NOW() WHERE id = ?",
+        [id],
+        () => {
+            req.session.mensaje = "Usuario activado";
+            res.redirect('/admin/usuarios');
+        }
+    );
 });
 
 // GESTIÓN DE PRODUCTOS (CRUD MULTIMEDIA)
