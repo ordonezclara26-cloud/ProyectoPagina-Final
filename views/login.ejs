@@ -129,7 +129,8 @@ novalidate
 type="email"
 id="correo"
 name="correo"
-placeholder="Correo">
+placeholder="Correo"
+required>
 
 <small id="errCorreo"></small>
 
@@ -138,7 +139,11 @@ placeholder="Correo">
 <input
 type="password"
 name="password"
-id="password">
+id="password"
+placeholder="Contraseña"
+required
+minlength="10"
+maxlength="13">
 
 <small id="errPass"></small>
 
@@ -163,8 +168,8 @@ function togglePassword(){
 const input=
 document.getElementById("password");
 
-input.type=
-input.type==="password"
+input.type =
+input.type === "password"
 ?
 "text"
 :
@@ -196,6 +201,10 @@ ok=false;
 
 if(pass===""){
 document.getElementById("errPass").innerHTML="Ingrese contraseña";
+ok=false;
+}
+else if(pass.length < 10 || pass.length > 13){
+document.getElementById("errPass").innerHTML="La contraseña debe tener entre 10 y 13 caracteres";
 ok=false;
 }
 

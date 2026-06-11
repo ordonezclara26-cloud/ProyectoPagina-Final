@@ -176,18 +176,22 @@ border-radius:6px;
     >
 
     <input
-        type="text"
-        name="nombre"
-        value="<%= categoriaEditar.nombre %>"
-        required
-    >
+type="text"
+name="nombre"
+value="<%= categoriaEditar.nombre %>"
+required
+minlength="3"
+maxlength="50"
+>
 
-    <input
-        type="text"
-        name="descripcion"
-        value="<%= categoriaEditar.descripcion %>"
-        required
-    >
+<input
+type="text"
+name="descripcion"
+value="<%= categoriaEditar.descripcion %>"
+required
+minlength="5"
+maxlength="150"
+>
 
     <button type="submit" class="btn-edit">
         Guardar
@@ -208,18 +212,22 @@ border-radius:6px;
 <form action="/admin/categorias/agregar" method="POST">
 
     <input
-        type="text"
-        name="nombre"
-        placeholder="Nombre"
-        required
-    >
+type="text"
+name="nombre"
+placeholder="Nombre"
+required
+minlength="3"
+maxlength="50"
+>
 
-    <input
-        type="text"
-        name="descripcion"
-        placeholder="Descripción"
-        required
-    >
+<input
+type="text"
+name="descripcion"
+placeholder="Descripción"
+required
+minlength="5"
+maxlength="150"
+>
 
     <button type="submit" class="btn-add">
         Agregar

@@ -11,6 +11,14 @@ router.post('/register', async (req, res) => {
 
 const { nombre, correo, password } = req.body;
 
+if(password.length < 10 || password.length > 13){
+
+    return res.render('register', {
+        error: 'La contraseña debe tener entre 10 y 13 caracteres'
+    });
+
+}
+
 const hash = await bcrypt.hash(password, 10);
 
 db.query(

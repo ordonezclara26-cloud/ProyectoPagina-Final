@@ -112,7 +112,8 @@ type="text"
 id="nombre"
 name="nombre"
 placeholder="Nombre"
-autocomplete="off">
+autocomplete="off"
+required>
 
 <small id="errNombre"></small>
 
@@ -121,7 +122,8 @@ type="email"
 id="correo"
 name="correo"
 placeholder="Correo"
-autocomplete="off">
+autocomplete="off"
+required>
 
 <small id="errCorreo"></small>
 
@@ -130,7 +132,11 @@ autocomplete="off">
 <input
 type="password"
 name="password"
-id="password">
+id="password"
+placeholder="Contraseña"
+required
+minlength="10"
+maxlength="13">
 
 <small id="errPass"></small>
 
@@ -191,8 +197,9 @@ document.getElementById("errCorreo").innerHTML="Ingrese correo";
 ok=false;
 }
 
-if(pass.length<6){
-document.getElementById("errPass").innerHTML="Mínimo 6 caracteres";
+if(pass.length < 10 || pass.length > 13){
+document.getElementById("errPass").innerHTML =
+"La contraseña debe tener entre 10 y 13 caracteres";
 ok=false;
 }
 

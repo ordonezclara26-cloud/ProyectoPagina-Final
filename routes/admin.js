@@ -202,6 +202,23 @@ router.get('/categorias', verificarAdmin, (req, res) => {
 router.post('/categorias/agregar', verificarAdmin, (req, res) => {
 
     const { nombre, descripcion } = req.body;
+    if(nombre.trim().length < 3){
+
+    req.session.mensaje =
+    "El nombre debe tener al menos 3 caracteres";
+
+    return res.redirect('/admin/categorias');
+
+}
+
+if(descripcion.trim().length < 5){
+
+    req.session.mensaje =
+    "La descripción debe tener al menos 5 caracteres";
+
+    return res.redirect('/admin/categorias');
+
+}
 
     db.query(
         "INSERT INTO categorias (nombre, descripcion) VALUES (?, ?)",
