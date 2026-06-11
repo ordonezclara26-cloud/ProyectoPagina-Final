@@ -6,35 +6,84 @@
 
 <style>
     body {
-        font-family: 'Segoe UI', sans-serif;
-        background: #f4f6f9;
-    }
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    margin:0;
+}
+
+    .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#111;
+    color:white;
+    padding:8px 25px;
+}
+
+.logo img{
+    height:45px;
+    width:auto;
+}
+
+.titulo-navbar{
+    font-size:22px;
+    font-weight:700;
+}
 
     .container {
-        max-width: 400px;
-        margin: 50px auto;
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-    }
+    max-width: 400px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
 
-    input {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-    }
+    input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 
     button {
-        width: 100%;
-        padding: 10px;
-        background: #2563eb;
-        color: white;
-        border: none;
-    }
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.volver{
+    display:inline-block;
+    margin:15px;
+    padding:8px 15px;
+    background:black;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
 </style>
 </head>
 
 <body>
+
+    <div class="navbar">
+
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+
+    <div class="titulo-navbar">
+        Editar Producto
+    </div>
+
+    <div style="width:100px;"></div>
+
+</div>
 
 <div class="container">
 
@@ -68,7 +117,9 @@
 
     <br>
 
-    <a href="/admin/productos">← Volver</a>
+    <a href="/admin/productos" class="volver">
+    ← Volver a Productos
+</a>
 </div>
 
 </body>
