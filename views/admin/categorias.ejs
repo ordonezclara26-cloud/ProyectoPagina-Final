@@ -14,28 +14,22 @@
     .navbar{
     display:flex;
     align-items:center;
-    justify-content:center;
+    justify-content:space-between;
 
     background:#111;
     color:white;
 
-    padding:8px 20px;
-
-    position:relative;
-}
-
-.logo{
-    position:absolute;
-    left:20px;
+    padding:8px 25px;
 }
 
 .logo img{
-    height:40px;
+    height:45px;
+    width:auto;
 }
 
 .titulo-navbar{
-    font-size:18px;
-    font-weight:bold;
+    font-size:22px;
+    font-weight:700;
 }
 
     /* SISTEMA DE BOTONES (Código de colores funcional) */
@@ -54,11 +48,26 @@
     .btn-edit{
     background:#4b5563;
     color:white;
+
+    padding:8px 12px;
+    border-radius:5px;
+
+    text-decoration:none;
+    display:inline-block;
 }
 
-    .btn-delete{
+.btn-delete{
     background:#374151;
     color:white;
+    padding:8px 12px;
+    border-radius:5px;
+}
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:15px;
 }
 
     /* GRID DE CATEGORÍAS */
@@ -79,9 +88,29 @@
         margin: 0;
     }
 
-    .actions {
-        margin-top: 10px;
-    }
+    .form-box{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:25px;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+input{
+    padding:10px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    margin-right:8px;
+}
+    .container{
+    padding:30px;
+}
+
+.form-box form{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
 </style>
 </head>
 
@@ -97,18 +126,20 @@
         Gestión de Categorías
     </div>
 
+    <div style="width:100px;"></div>
+
 </div>
 
 <a href="/admin" style="
-    display:inline-block;
-    margin:15px;
-    padding:8px 15px;
-    background:black;
-    color:white;
-    text-decoration:none;
-    border-radius:6px;
-    ">
-    ← Volver al Panel
+display:inline-block;
+margin:30px 30px 15px 30px;
+padding:8px 15px;
+background:black;
+color:white;
+text-decoration:none;
+border-radius:6px;
+">
+← Volver al Panel
 </a>
 
 <div class="container">
@@ -149,7 +180,8 @@
                     Editar
                     </a>
 
-                    <form action="/admin/categorias/eliminar" method="POST" style="display:inline;">
+                    <form action="/admin/categorias/eliminar"
+      method="POST">
                         <input type="hidden" name="id" value="<%= c.id %>">
                         <button type="submit" class="btn-delete">Eliminar</button>
                     </form>
