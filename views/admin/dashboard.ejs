@@ -13,14 +13,26 @@
     }
 
     /* NAVBAR: Barra superior de estado */
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #111;
-        color: white;
-        padding: 15px 30px;
-    }
+    .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:#111;
+    color:white;
+
+    padding:8px 25px;
+}
+
+    .logo img{
+    height:45px;
+    width:auto;
+}
+
+.titulo-navbar{
+    font-size:22px;
+    font-weight:700;
+}
 
     .navbar h2 {
         margin: 0;
@@ -93,7 +105,9 @@
         <img src="/img/logo.png">
     </div>
 
-    <h2>Panel de Administración</h2>
+    <div class="titulo-navbar">
+        Panel de Administración
+    </div>
 
     <a href="/auth/logout" class="logout">
         Cerrar sesión
