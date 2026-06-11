@@ -153,9 +153,11 @@ border-radius:6px;
             </span>
         </p>
 
-        <p><strong>Fecha:</strong> 
-            <%= new Date(pedidos[id].fecha).toLocaleString() %>
-        </p>
+       <p><strong>Fecha:</strong> 
+    <%= new Date(
+        new Date(pedidos[id].fecha).getTime() - (6 * 60 * 60 * 1000)
+    ).toLocaleString('es-HN') %>
+</p>
     </div>
 
     <div class="hr"></div>
