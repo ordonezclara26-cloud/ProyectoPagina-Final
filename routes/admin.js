@@ -288,13 +288,13 @@ const estado = req.query.estado || "";
     let condiciones = [];
 
 if (buscar) {
-    condiciones.push("p.codigo LIKE ?");
-    params.push(`%${buscar}%`);
-}
-
-if (buscar) {
     condiciones.push("RIGHT(p.codigo, 5) = ?");
     params.push(buscar);
+}
+
+if (estado) {
+    condiciones.push("p.estado = ?");
+    params.push(estado);
 }
 
 if (condiciones.length > 0) {
