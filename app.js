@@ -49,7 +49,13 @@ app.get('/admin/login', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
+
+    if (!req.session.usuario) {
+        return res.send('Acceso denegado');
+    }
+
     res.render('register');
+
 });
 
 app.get('/inicio', (req, res) => {
