@@ -16,12 +16,18 @@
     /* BARRA DE NAVEGACIÓN SIMPLIFICADA
        En el checkout se reducen los links para evitar que el usuario abandone la compra */
     .navbar {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px 30px;
-        background: #111;
-        color: white;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #111;
+    color: white;
+}
+
+.titulo-navbar{
+    font-size:24px;
+    font-weight:bold;
+}
 
     .logo img {
         height: 40px;
@@ -63,13 +69,16 @@
     <div class="logo">
         <img src="/img/logo.png">
     </div>
+
+     <div class="titulo-navbar">
+        Resumen del Pedido
+    </div>
+
+     <div></div>
+
 </div>
 
 <div class="container">
-
-    <h3 style="text-align:center; color:#666; margin-top:0;">
-        Resumen del Pedido
-    </h3>
 
     <h2>Finalizar Compra</h2>
 
@@ -97,8 +106,39 @@
     </option>
 </select>
 
+<div id="resumen-total"
+style="
+background:#f8f9fa;
+padding:15px;
+border-radius:8px;
+margin:10px 0;
+">
+
+    <p>
+        Subtotal:
+        <strong>L. <%= total %></strong>
+    </p>
+
+    <p>
+        Envío:
+        <strong id="costo-envio">L. 60</strong>
+    </p>
+
+    <p>
+        Total estimado:
+        <strong id="total-estimado">
+            L. <%= total + 60 %>
+        </strong>
+    </p>
+
+</div>
+
         <select name="metodo" required>
             <option value="contra_entrega">Pago contra entrega</option>
+
+             <option value="transferencia">
+        Transferencia bancaria
+    </option>
         </select>
 
         <button class="btn-pagar">Confirmar pedido</button>
@@ -106,6 +146,32 @@
     </form>
 
 </div>
+<script>
 
+const envio = document.querySelector('select[name="envio"]');
+
+const subtotal = <%= total %>;
+
+envio.addEventListener('change', () => {
+
+    let costo = 60;
+
+    if(envio.value === "jutiquile"){
+        costo = 80;
+    }
+
+    if(envio.value === "catacamas"){
+        costo = 120;
+    }
+
+    document.getElementById("costo-envio").innerText =
+        "L. " + costo;
+
+    document.getElementById("total-estimado").innerText =
+        "L. " + (subtotal + costo);
+
+});
+
+</script>
 </body>
 </html>

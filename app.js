@@ -180,7 +180,26 @@ app.get('/carrito', (req, res) => {
 
 // CHECKOUT
 app.get('/checkout', (req, res) => {
-    res.render('checkout');
+
+    const carrito = req.session.carrito || {};
+
+    db.query("SELECT * FROM productos", (err, productos) => {
+
+        let total = 0;
+
+        for (let id in carrito) {
+
+            const producto = productos.find(p => p.id == id);
+
+            if (producto) {
+                total += producto.precio * carrito[id];
+            }
+        }
+
+        res.render('checkout', { total });
+
+    });
+
 });
 
 // PROCESAMIENTO DE ORDENES Y GENERACIÓN DE FACTURA

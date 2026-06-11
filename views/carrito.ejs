@@ -72,7 +72,7 @@ body {
 
 /* BOTONES DE ACCIÓN: Colores semánticos (Rojo para eliminar, Verde para pagar) */
 .btn-eliminar {
-    background: red;
+    background:#050527;
     color: white;
     border: none;
     padding: 6px 10px;
@@ -188,7 +188,7 @@ html, body {
 
     <form action="/carrito/eliminar" method="POST">
         <input type="hidden" name="id" value="<%= p.id %>">
-        <button class="btn-eliminar">🗑 Eliminar</button>
+        <button class="btn-eliminar"> Eliminar</button>
     </form>
 
 </div>
@@ -198,7 +198,7 @@ html, body {
     <h2>Total: L. <%= total %></h2>
 
     <a href="/checkout">
-        <button class="btn-pagar">Proceder a pagar</button>
+        <button class="btn-pagar">Confirmar pedido</button>
     </a>
 </div>
 
