@@ -104,14 +104,15 @@ margin-bottom:10px;
 action="/auth/register"
 method="POST"
 onsubmit="return validarRegistro()"
+novalidate
 >
+
 <input
 type="text"
 id="nombre"
 name="nombre"
 placeholder="Nombre"
-autocomplete="off"
-required>
+autocomplete="off">
 
 <small id="errNombre"></small>
 
@@ -120,8 +121,7 @@ type="email"
 id="correo"
 name="correo"
 placeholder="Correo"
-autocomplete="off"
-required>
+autocomplete="off">
 
 <small id="errCorreo"></small>
 
@@ -130,9 +130,7 @@ required>
 <input
 type="password"
 name="password"
-id="password"
-required
->
+id="password">
 
 <small id="errPass"></small>
 
@@ -170,9 +168,9 @@ function validarRegistro(){
 
 let ok=true;
 
-errNombre.innerHTML="";
-errCorreo.innerHTML="";
-errPass.innerHTML="";
+document.getElementById("errNombre").innerHTML="";
+document.getElementById("errCorreo").innerHTML="";
+document.getElementById("errPass").innerHTML="";
 
 const nombre =
 document.getElementById("nombre").value.trim();
@@ -184,17 +182,17 @@ const pass =
 document.getElementById("password").value;
 
 if(nombre===""){
-errNombre.innerHTML="Ingrese nombre";
+document.getElementById("errNombre").innerHTML="Ingrese nombre";
 ok=false;
 }
 
 if(correo===""){
-errCorreo.innerHTML="Ingrese correo";
+document.getElementById("errCorreo").innerHTML="Ingrese correo";
 ok=false;
 }
 
 if(pass.length<6){
-errPass.innerHTML="Mínimo 6 caracteres";
+document.getElementById("errPass").innerHTML="Mínimo 6 caracteres";
 ok=false;
 }
 
