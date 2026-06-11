@@ -38,7 +38,7 @@
         button {
             width: 100%;
             padding: 10px;
-            background: #38a169;
+            background: black;
             color: white;
             border: none;
             border-radius: 8px;
@@ -46,7 +46,7 @@
         }
 
         button:hover {
-            background: #2f855a;
+            background: #333;
         }
 
         a {
@@ -60,17 +60,16 @@
 position:relative;
 }
 
-.password-box input{
-width:100%;
-box-sizing:border-box;
-}
-
 .password-box span{
 position:absolute;
 right:15px;
-top:50%;
-transform:translateY(-50%);
+top:22px;
 cursor:pointer;
+}
+
+.password-box input{
+width:100%;
+box-sizing:border-box;
 }
 
 small{
@@ -84,6 +83,10 @@ font-size:13px;
 <body>
 
 <div class="container">
+    <img
+src="/img/logo.png"
+style="height:60px; margin-bottom:20px;"
+>
     <h2>Crear Cuenta</h2>
     <% if (typeof error !== 'undefined') { %>
 

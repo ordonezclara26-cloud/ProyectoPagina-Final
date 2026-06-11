@@ -74,16 +74,16 @@
 position:relative;
 }
 
-.password-box input{
-width:100%;
-box-sizing:border-box;
-}
-
 .password-box span{
 position:absolute;
 right:15px;
 top:22px;
 cursor:pointer;
+}
+
+.password-box input{
+width:100%;
+box-sizing:border-box;
 }
 
 small{
@@ -106,17 +106,16 @@ font-size:13px;
         <h2>Iniciar Sesión</h2>
 
         <% if (typeof error !== 'undefined') { %>
-        <div style="
-        background: #dc2626;
-        color: white;
-        padding: 10px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-size: 14px;
-        ">
-            <%= error %>
-        </div>
-        <% } %>
+
+<p style="
+color:red;
+margin-bottom:10px;
+font-size:14px;
+">
+<%= error %>
+</p>
+
+<% } %>
 
         <form
 action="/auth/login"

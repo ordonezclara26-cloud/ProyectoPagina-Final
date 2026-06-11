@@ -49,19 +49,8 @@ app.get('/admin/login', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-
-    if (!req.session.usuario) {
-
-        return res.render('login', {
-             error: 'Debe iniciar sesión con una cuenta autorizada para crear usuarios.'
-        });
-
-    }
-
     res.render('register');
-
 });
-
 app.get('/inicio', (req, res) => {
     const carrito = req.session.carrito || {};
     res.render('inicio', {
