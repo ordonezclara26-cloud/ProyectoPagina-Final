@@ -11,30 +11,32 @@
         background: #f4f4f4;
     }
 
-    .navbar {
-        background: #111;
-        color: white;
-        padding: 15px 30px;
-        font-weight: bold;
-    }
+    .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    .container {
-        padding: 30px;
-    }
+    background:#111;
+    color:white;
 
-    .form-box {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
+    padding:8px 20px;
 
-    input {
-        padding: 8px;
-        margin: 5px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
+    position:relative;
+}
+
+.logo{
+    position:absolute;
+    left:20px;
+}
+
+.logo img{
+    height:40px;
+}
+
+.titulo-navbar{
+    font-size:18px;
+    font-weight:bold;
+}
 
     /* SISTEMA DE BOTONES (Código de colores funcional) */
     button {
@@ -44,24 +46,20 @@
         cursor: pointer;
     }
 
-    .btn-add {
-        background: green;
-        color: white;
-    }
+    .btn-add{
+    background:#050527;
+    color:white;
+}
 
-    .btn-edit {
-        background: orange;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 5px;
-        text-decoration: none;
-        display: inline-block;
-    }
+    .btn-edit{
+    background:#4b5563;
+    color:white;
+}
 
-    .btn-delete {
-        background: red;
-        color: white;
-    }
+    .btn-delete{
+    background:#374151;
+    color:white;
+}
 
     /* GRID DE CATEGORÍAS */
     .grid {
@@ -90,7 +88,15 @@
 <body>
 
 <div class="navbar">
-    GESTION DE CATEGORÍAS
+
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+
+    <div class="titulo-navbar">
+        Gestión de Categorías
+    </div>
+
 </div>
 
 <a href="/admin" style="
