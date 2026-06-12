@@ -175,10 +175,15 @@ text-align:center;
 
         <strong><%= u.nombre %></strong> - <%= u.correo %><br>
 
-        Estado: 
-        <%= u.estado == 1 ? "Activo " : "Bloqueado " %>
+        Estado:
+<%= u.estado == 1 ? "Activo" : "Bloqueado" %>
 
-        <br><br>
+<br>
+
+Rol:
+<%= u.rol_id == 1 ? "Administrador" : "Empleado" %>
+
+<br><br>
 
        <form
 action="/admin/usuarios/bloquear"
@@ -205,6 +210,26 @@ class="formEliminar"
 >
     <input type="hidden" name="id" value="<%= u.id %>">
     <button type="submit">Eliminar</button>
+</form>
+
+<form
+action="/admin/usuarios/cambiarRol"
+method="POST"
+class="formRol"
+>
+
+    <input type="hidden" name="id" value="<%= u.id %>">
+
+    <input
+        type="hidden"
+        name="rol_id"
+        value="<%= u.rol_id == 1 ? 2 : 1 %>"
+    >
+
+    <button type="submit">
+        Cambiar Rol
+    </button>
+
 </form>
 
     </div>
@@ -263,6 +288,25 @@ document.querySelectorAll(".formEliminar")
 
         document.getElementById("textoModal").innerHTML =
         "¿Desea eliminar este usuario?";
+
+        document.getElementById("modalConfirmacion").style.display =
+        "flex";
+
+    });
+
+});
+
+document.querySelectorAll(".formRol")
+.forEach(form => {
+
+    form.addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+        formularioActual = this;
+
+        document.getElementById("textoModal").innerHTML =
+        "¿Desea cambiar el rol de este usuario?";
 
         document.getElementById("modalConfirmacion").style.display =
         "flex";

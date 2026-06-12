@@ -125,6 +125,33 @@ router.post('/usuarios/eliminar', verificarAdmin, (req, res) => {
 
 });
 
+router.post('/usuarios/cambiarRol', verificarAdmin, (req, res) => {
+
+    const { id, rol_id } = req.body;
+
+    if (parseInt(id) === req.session.usuario.id) {
+
+        req.session.mensaje =
+        "No puede modificar su propio rol";
+
+        return res.redirect('/admin/usuarios');
+    }
+
+    db.query(
+        "UPDATE usuarios SET rol_id = ? WHERE id = ?",
+        [rol_id, id],
+        () => {
+
+            req.session.mensaje =
+            "Rol actualizado correctamente";
+
+            res.redirect('/admin/usuarios');
+
+        }
+    );
+
+});
+
 // GESTIÓN DE PRODUCTOS (CRUD MULTIMEDIA)
 router.get('/productos', verificarSesion, (req, res) => {
 
