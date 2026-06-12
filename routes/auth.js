@@ -36,7 +36,7 @@ error: "Correo ya registrado"
 }
 
 db.query(
-"INSERT INTO usuarios (nombre, correo, password, rol_id, estado, ultimo_login) VALUES (?, ?, ?, 1, 1, NOW())",
+"INSERT INTO usuarios (nombre, correo, password, rol_id, estado, ultimo_login) VALUES (?, ?, ?, 2, 1, NOW())",
 [nombre, correo, hash],
 (err) => {
 

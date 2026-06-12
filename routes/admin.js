@@ -126,7 +126,7 @@ router.post('/usuarios/eliminar', verificarAdmin, (req, res) => {
 });
 
 // GESTIÓN DE PRODUCTOS (CRUD MULTIMEDIA)
-router.get('/productos', verificarAdmin, (req, res) => {
+router.get('/productos', verificarSesion, (req, res) => {
 
     // Consulta con JOIN para traer el nombre de la categoría en lugar de solo el ID
     db.query(`
@@ -144,7 +144,7 @@ router.get('/productos', verificarAdmin, (req, res) => {
 });
 
 
-router.get('/productos/nuevo', verificarAdmin, (req, res) => {
+router.get('/productos/nuevo', verificarSesion, (req, res) => {
 
     db.query("SELECT * FROM categorias", (err, categorias) => {
         if (err) return res.send('Error');
@@ -156,7 +156,7 @@ router.get('/productos/nuevo', verificarAdmin, (req, res) => {
 });
 
 // GUARDAR PRODUCTO: Usa 'upload.single' para procesar la imagen enviada
-router.post('/productos/guardar', verificarAdmin, upload.single('imagen'), (req, res) => {
+router.post('/productos/guardar', verificarSesion, upload.single('imagen'), (req, res) => {
 
     const { nombre, descripcion, precio, categoria_id } = req.body;
 
@@ -176,7 +176,7 @@ router.post('/productos/guardar', verificarAdmin, upload.single('imagen'), (req,
     );
 });
 
-router.post('/productos/eliminar', verificarAdmin, (req, res) => {
+router.post('/productos/eliminar', verificarSesion, (req, res) => {
 
     const id = req.body.id;
 
@@ -185,7 +185,7 @@ router.post('/productos/eliminar', verificarAdmin, (req, res) => {
     });
 });
 
-router.get('/productos/editar/:id', verificarAdmin, (req, res) => {
+router.get('/productos/editar/:id', verificarSesion, (req, res) => {
 
     const id = req.params.id;
 
@@ -203,7 +203,7 @@ router.get('/productos/editar/:id', verificarAdmin, (req, res) => {
     });
 });
 
-router.post('/productos/editar', verificarAdmin, (req, res) => {
+router.post('/productos/editar', verificarSesion, (req, res) => {
 
     const { id, nombre, descripcion, precio, categoria_id } = req.body;
 
@@ -218,7 +218,7 @@ router.post('/productos/editar', verificarAdmin, (req, res) => {
 });
 
 // CATEGORÍAS
-router.get('/categorias', verificarAdmin, (req, res) => {
+router.get('/categorias', verificarSesion, (req, res) => {
 
     const mensaje = req.session.mensaje;
 const error = req.session.error;
@@ -250,7 +250,7 @@ req.session.error = null;
 
 });
 
-router.post('/categorias/agregar', verificarAdmin, (req, res) => {
+router.post('/categorias/agregar', verificarSesion, (req, res) => {
 
     const { nombre, descripcion } = req.body;
     if(nombre.trim().length < 3){
@@ -281,7 +281,7 @@ if(descripcion.trim().length < 5){
     );
 });
 
-router.post('/categorias/eliminar', verificarAdmin, (req, res) => {
+router.post('/categorias/eliminar', verificarSesion, (req, res) => {
 
     const id = req.body.id;
 
@@ -297,7 +297,7 @@ router.post('/categorias/eliminar', verificarAdmin, (req, res) => {
     });
 });
 
-router.post('/categorias/editar', verificarAdmin, (req, res) => {
+router.post('/categorias/editar', verificarSesion, (req, res) => {
 
     const { id, nombre, descripcion } = req.body;
 
@@ -327,7 +327,7 @@ if(descripcion.trim().length < 5){
 });
 
 // GESTIÓN DE PEDIDOS (LÓGICA DE AGRUPACIÓN)
-router.get('/pedidos', verificarAdmin, (req, res) => {
+router.get('/pedidos', verificarSesion, (req, res) => {
 
     const buscar = req.query.buscar || "";
 const estado = req.query.estado || "";
@@ -405,7 +405,7 @@ if (condiciones.length > 0) {
     });
 });
 
-router.get('/pedidos/pdf', verificarAdmin, (req, res) => {
+router.get('/pedidos/pdf', verificarSesion, (req, res) => {
 
     const sql = `
         SELECT
@@ -531,7 +531,7 @@ router.get('/pedidos/pdf', verificarAdmin, (req, res) => {
 });
 
 // CAMBIAR ESTADO
-router.post('/pedidos/estado', verificarAdmin, (req, res) => {
+router.post('/pedidos/estado', verificarSesion, (req, res) => {
 
     const { id, estado } = req.body;
 
@@ -545,7 +545,7 @@ router.post('/pedidos/estado', verificarAdmin, (req, res) => {
 });
 
 // ELIMINAR PEDIDO
-router.post('/pedidos/eliminar', verificarAdmin, (req, res) => {
+router.post('/pedidos/eliminar', verificarSesion, (req, res) => {
 
     const id = req.body.id;
 
