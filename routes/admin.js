@@ -58,6 +58,24 @@ router.get('/', verificarSesion, (req, res) => {
 
 });
 
+router.get('/usuarios', verificarAdmin, (req, res) => {
+
+    const mensaje = req.session.mensaje;
+    req.session.mensaje = null;
+
+    db.query("SELECT * FROM usuarios", (err, results) => {
+
+        if (err) return res.send('Error');
+
+        res.render('admin/usuarios', {
+            usuarios: results,
+            mensaje: mensaje
+        });
+
+    });
+
+});
+
 router.post('/usuarios/bloquear', verificarAdmin, (req, res) => {
 
     const id = req.body.id;
