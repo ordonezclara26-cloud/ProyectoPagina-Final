@@ -175,7 +175,10 @@ router.post('/productos/editar', verificarAdmin, (req, res) => {
 router.get('/categorias', verificarAdmin, (req, res) => {
 
     const mensaje = req.session.mensaje;
-    req.session.mensaje = null;
+const error = req.session.error;
+
+req.session.mensaje = null;
+req.session.error = null;
 
     const editarId = req.query.editar;
 
@@ -191,10 +194,11 @@ router.get('/categorias', verificarAdmin, (req, res) => {
         }
 
         res.render('admin/categorias', {
-            categorias: results,
-            mensaje,
-            categoriaEditar
-        });
+    categorias: results,
+    mensaje,
+    error,
+    categoriaEditar
+});
 
     });
 
@@ -205,8 +209,8 @@ router.post('/categorias/agregar', verificarAdmin, (req, res) => {
     const { nombre, descripcion } = req.body;
     if(nombre.trim().length < 3){
 
-    req.session.mensaje =
-    "El nombre debe tener al menos 3 caracteres";
+    req.session.error =
+"El nombre debe tener al menos 3 caracteres";
 
     return res.redirect('/admin/categorias');
 
@@ -214,8 +218,8 @@ router.post('/categorias/agregar', verificarAdmin, (req, res) => {
 
 if(descripcion.trim().length < 5){
 
-    req.session.mensaje =
-    "La descripción debe tener al menos 5 caracteres";
+    req.session.error =
+"La descripción debe tener al menos 5 caracteres";
 
     return res.redirect('/admin/categorias');
 
@@ -238,9 +242,9 @@ router.post('/categorias/eliminar', verificarAdmin, (req, res) => {
     db.query("DELETE FROM categorias WHERE id = ?", [id], (err) => {
 
         if (err) {
-            req.session.mensaje = "No se puede eliminar";
-            return res.redirect('/admin/categorias');
-        }
+    req.session.error = "No se puede eliminar";
+    return res.redirect('/admin/categorias');
+}
 
         req.session.mensaje = "Categoría eliminada";
         res.redirect('/admin/categorias');
@@ -251,6 +255,21 @@ router.post('/categorias/editar', verificarAdmin, (req, res) => {
 
     const { id, nombre, descripcion } = req.body;
 
+    if(nombre.trim().length < 3){
+
+    req.session.error =
+    "El nombre debe tener al menos 3 caracteres";
+
+    return res.redirect('/admin/categorias');
+}
+
+if(descripcion.trim().length < 5){
+
+    req.session.error =
+    "La descripción debe tener al menos 5 caracteres";
+
+    return res.redirect('/admin/categorias');
+}
     db.query(
         "UPDATE categorias SET nombre = ?, descripcion = ? WHERE id = ?",
         [nombre, descripcion, id],

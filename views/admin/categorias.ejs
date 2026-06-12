@@ -162,6 +162,19 @@ border-radius:6px;
         </div>
     <% } %>
 
+    <% if (error) { %>
+<div style="
+background:#dc2626;
+color:white;
+padding:10px;
+margin-bottom:15px;
+border-radius:8px;
+text-align:center;
+">
+<%= error %>
+</div>
+<% } %>
+
     <!-- FORM -->
     <div class="form-box">
 
