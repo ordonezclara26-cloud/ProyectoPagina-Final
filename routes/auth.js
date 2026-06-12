@@ -42,7 +42,7 @@ db.query(
 
 if (err) return res.send("Error");
 
-res.redirect('/admin/login');
+res.redirect('/admin/usuarios');
 
 }
 );
