@@ -34,7 +34,7 @@ const adminRoutes = require('./routes/admin');
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 
-// CLIENTE
+// EMPLEADO
 app.get('/', (req, res) => {
 
     if (process.env.ADMIN_APP) {
@@ -50,23 +50,15 @@ app.get('/admin/login', (req, res) => {
 
 app.get('/register', (req, res) => {
 
+    console.log("USUARIO SESSION:", req.session.usuario);
+
     if (!req.session.usuario) {
-
-        return res.render('login', {
-            error: 'Acceso denegado'
-        });
-
+        return res.send("SIN SESION");
     }
 
-    if (parseInt(req.session.usuario.rol_id) !== 1) {
-
-        return res.render('login', {
-            error: 'Acceso denegado'
-        });
-
-    }
-
-    res.render('register');
+    return res.send(
+        "ROL = " + req.session.usuario.rol_id
+    );
 
 });
 
