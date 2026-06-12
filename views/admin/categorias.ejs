@@ -120,8 +120,13 @@ small{
 display:block;
 color:red;
 font-size:13px;
-margin-top:-5px;
-margin-bottom:8px;
+margin-top:4px;
+min-height:18px;
+}
+
+.form-box form div{
+    display:flex;
+    flex-direction:column;
 }
 </style>
 </head>
@@ -170,12 +175,30 @@ border-radius:6px;
         </div>
     <% } %>
 
+    <% if (error) { %>
+<div style="
+background:#dc2626;
+color:white;
+padding:10px;
+margin-bottom:15px;
+border-radius:8px;
+text-align:center;
+">
+<%= error %>
+</div>
+<% } %>
+
     <!-- FORM -->
     <div class="form-box">
 
 <% if(categoriaEditar){ %>
 
-<form action="/admin/categorias/editar" method="POST">
+<form
+action="/admin/categorias/editar"
+method="POST"
+onsubmit="return validarCategoriaEditar()"
+novalidate
+>
 
     <input
         type="hidden"
@@ -183,23 +206,33 @@ border-radius:6px;
         value="<%= categoriaEditar.id %>"
     >
 
-    <input
-type="text"
-name="nombre"
-value="<%= categoriaEditar.nombre %>"
-required
-minlength="3"
-maxlength="50"
->
+    <div>
 
 <input
 type="text"
+id="nombreEditar"
+name="nombre"
+value="<%= categoriaEditar.nombre %>"
+maxlength="50"
+>
+
+<small id="errNombreEditar"></small>
+
+</div>
+
+<div>
+
+<input
+type="text"
+id="descripcionEditar"
 name="descripcion"
 value="<%= categoriaEditar.descripcion %>"
-required
-minlength="5"
 maxlength="150"
 >
+
+<small id="errDescripcionEditar"></small>
+
+</div>
 
     <button type="submit" class="btn-edit">
         Guardar
@@ -224,7 +257,8 @@ onsubmit="return validarCategoria()"
 novalidate
 >
 
-    <input
+    <div>
+<input
 type="text"
 id="nombre"
 name="nombre"
@@ -233,7 +267,9 @@ maxlength="50"
 >
 
 <small id="errNombre"></small>
+</div>
 
+<div>
 <input
 type="text"
 id="descripcion"
@@ -243,6 +279,7 @@ maxlength="150"
 >
 
 <small id="errDescripcion"></small>
+</div>
 
     <button type="submit" class="btn-add">
         Agregar
@@ -333,6 +370,56 @@ return ok;
 
 }
 
+function validarCategoriaEditar(){
+
+let ok = true;
+
+document.getElementById("errNombreEditar").innerHTML = "";
+document.getElementById("errDescripcionEditar").innerHTML = "";
+
+const nombre =
+document.getElementById("nombreEditar").value.trim();
+
+const descripcion =
+document.getElementById("descripcionEditar").value.trim();
+
+if(nombre === ""){
+
+document.getElementById("errNombreEditar").innerHTML =
+"Ingrese nombre";
+
+ok = false;
+
+}
+else if(nombre.length < 3){
+
+document.getElementById("errNombreEditar").innerHTML =
+"El nombre debe tener al menos 3 caracteres";
+
+ok = false;
+
+}
+
+if(descripcion === ""){
+
+document.getElementById("errDescripcionEditar").innerHTML =
+"Ingrese descripción";
+
+ok = false;
+
+}
+else if(descripcion.length < 5){
+
+document.getElementById("errDescripcionEditar").innerHTML =
+"La descripción debe tener al menos 5 caracteres";
+
+ok = false;
+
+}
+
+return ok;
+
+}
 </script>
 </body>
 </html>
