@@ -63,6 +63,15 @@
         border-radius: 5px;
         cursor: pointer;
     }
+
+    small{
+display:block;
+color:red;
+font-size:13px;
+margin-top:-5px;
+margin-bottom:8px;
+min-height:18px;
+}
 </style>
 </head>
 
@@ -86,17 +95,53 @@
 
     <h2>Datos de Entrega</h2>
 
-    <form action="/compra" method="POST">
+    <form
+action="/compra"
+method="POST"
+onsubmit="return validarCheckout()"
+novalidate
+>
 
-        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input
+type="text"
+id="nombre"
+name="nombre"
+placeholder="Nombre completo"
+>
 
-        <input type="email" name="correo" placeholder="Correo electrónico" required>
+<small id="errNombre"></small>
 
-        <input type="text" name="telefono" placeholder="Teléfono" required>
+        <input
+type="email"
+id="correo"
+name="correo"
+placeholder="Correo electrónico"
+>
 
-        <input type="text" name="direccion" placeholder="Dirección exacta" required>
+<small id="errCorreo"></small>
+        <input
+type="text"
+id="telefono"
+name="telefono"
+placeholder="Teléfono"
+maxlength="8"
+>
 
-        <select name="envio" required>
+<small id="errTelefono"></small>
+
+        <input
+type="text"
+id="direccion"
+name="direccion"
+placeholder="Dirección exacta"
+>
+
+<small id="errDireccion"></small>
+
+        <select
+id="envio"
+name="envio"
+>
 
      <option value="" selected disabled>
         Seleccione destino
@@ -114,6 +159,7 @@
         Mandadito Catacamas (L.120)
     </option>
 </select>
+<small id="errEnvio"></small>
 
 <div id="resumen-total"
 style="
@@ -142,16 +188,32 @@ margin:10px 0;
 
 </div>
 
-        <select name="metodo" required>
-            <option value="contra_entrega">Pago contra entrega</option>
+        <select
+id="metodo"
+name="metodo"
+>
 
-             <option value="transferencia">
-        Transferencia bancaria
-    </option>
-        </select>
+<option value="" selected disabled>
+Seleccione método de pago
+</option>
 
-        <button class="btn-pagar">Confirmar pedido</button>
+<option value="contra_entrega">
+Pago contra entrega
+</option>
 
+<option value="transferencia">
+Transferencia bancaria
+</option>
+
+</select>
+        <small id="errMetodo"></small>
+
+        <button
+type="submit"
+class="btn-pagar"
+>
+Confirmar pedido
+</button>
     </form>
 
 </div>
@@ -185,6 +247,99 @@ envio.addEventListener('change', () => {
 
 });
 
+function validarCheckout(){
+
+let ok = true;
+
+document.getElementById("errNombre").innerHTML="";
+document.getElementById("errCorreo").innerHTML="";
+document.getElementById("errTelefono").innerHTML="";
+document.getElementById("errDireccion").innerHTML="";
+document.getElementById("errEnvio").innerHTML="";
+document.getElementById("errMetodo").innerHTML="";
+
+const nombre =
+document.getElementById("nombre").value.trim();
+
+const correo =
+document.getElementById("correo").value.trim();
+
+const telefono =
+document.getElementById("telefono").value.trim();
+
+const direccion =
+document.getElementById("direccion").value.trim();
+
+const envio =
+document.getElementById("envio").value;
+
+const metodo =
+document.getElementById("metodo").value;
+
+if(nombre === ""){
+document.getElementById("errNombre").innerHTML =
+"Ingrese nombre completo";
+ok = false;
+}
+else if(nombre.length < 3){
+document.getElementById("errNombre").innerHTML =
+"El nombre debe tener al menos 3 caracteres";
+ok = false;
+}
+
+if(correo === ""){
+document.getElementById("errCorreo").innerHTML =
+"Ingrese correo";
+ok = false;
+}
+else{
+
+const patronCorreo =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!patronCorreo.test(correo)){
+
+document.getElementById("errCorreo").innerHTML =
+"Ingrese un correo válido";
+
+ok = false;
+
+}
+
+}
+
+if(telefono === ""){
+document.getElementById("errTelefono").innerHTML =
+"Ingrese teléfono";
+ok = false;
+}
+else if(!/^\d{8}$/.test(telefono)){
+document.getElementById("errTelefono").innerHTML =
+"El teléfono debe contener exactamente 8 dígitos";
+ok = false;
+}
+
+if(direccion === ""){
+document.getElementById("errDireccion").innerHTML =
+"Ingrese dirección";
+ok = false;
+}
+
+if(envio === ""){
+document.getElementById("errEnvio").innerHTML =
+"Seleccione destino";
+ok = false;
+}
+
+if(metodo === ""){
+document.getElementById("errMetodo").innerHTML =
+"Seleccione método de pago";
+ok = false;
+}
+
+return ok;
+
+}
 </script>
 </body>
 </html>
