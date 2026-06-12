@@ -66,6 +66,15 @@
     text-decoration:none;
     border-radius:6px;
 }
+
+small{
+display:block;
+color:red;
+font-size:13px;
+margin-top:-4px;
+margin-bottom:8px;
+min-height:18px;
+}
 </style>
 </head>
 
@@ -93,16 +102,40 @@
 
     <h2>Editar Producto</h2>
 
-    <form action="/admin/productos/editar" method="POST">
+    <form
+action="/admin/productos/editar"
+method="POST"
+onsubmit="return validarEditarProducto()"
+novalidate
+>
 
         <input type="hidden" name="id" value="<%= producto.id %>">
 
-        <input type="text" name="nombre" value="<%= producto.nombre %>" required>
+        <input
+type="text"
+id="nombre"
+name="nombre"
+value="<%= producto.nombre %>">
 
-        <input type="text" name="descripcion" value="<%= producto.descripcion %>" required>
+<small id="errNombre"></small>
 
-        <input type="number" name="precio" value="<%= producto.precio %>" required>
-        <select name="categoria_id" required>
+        <input
+type="text"
+id="descripcion"
+name="descripcion"
+value="<%= producto.descripcion %>">
+
+<small id="errDescripcion"></small>
+
+        <input
+type="text"
+id="precio"
+name="precio"
+value="<%= producto.precio %>">
+<small id="errPrecio"></small>
+       <select
+id="categoria_id"
+name="categoria_id">
             <option value="">Seleccione categoría</option>
 
             <% categorias.forEach(c => { %>
@@ -112,15 +145,98 @@
                 </option>
             <% }) %>
         </select>
+        <small id="errCategoria"></small>
 
-        <input type="text" name="imagen" value="<%= producto.imagen %>">
+        <input
+type="text"
+id="imagen"
+name="imagen"
+value="<%= producto.imagen %>">
 
-        <button>Guardar cambios</button>
+<small id="errImagen"></small>
+
+        <button type="submit">Guardar cambios</button>
 
     </form>
 
     <br>
 </div>
+<script>
 
+function validarEditarProducto(){
+
+let ok = true;
+
+document.getElementById("errNombre").innerHTML="";
+document.getElementById("errDescripcion").innerHTML="";
+document.getElementById("errPrecio").innerHTML="";
+document.getElementById("errCategoria").innerHTML="";
+document.getElementById("errImagen").innerHTML="";
+
+const nombre =
+document.getElementById("nombre").value.trim();
+
+const descripcion =
+document.getElementById("descripcion").value.trim();
+
+const precio =
+document.getElementById("precio").value.replace(",", ".");
+
+const categoria =
+document.getElementById("categoria_id").value;
+
+const imagen =
+document.getElementById("imagen").value.trim();
+
+if(nombre === ""){
+document.getElementById("errNombre").innerHTML =
+"Ingrese nombre";
+ok = false;
+}
+else if(nombre.length < 3){
+document.getElementById("errNombre").innerHTML =
+"El nombre debe tener al menos 3 caracteres";
+ok = false;
+}
+
+if(descripcion === ""){
+document.getElementById("errDescripcion").innerHTML =
+"Ingrese descripción";
+ok = false;
+}
+else if(descripcion.length < 5){
+document.getElementById("errDescripcion").innerHTML =
+"La descripción debe tener al menos 5 caracteres";
+ok = false;
+}
+
+if(precio === ""){
+document.getElementById("errPrecio").innerHTML =
+"Ingrese precio";
+ok = false;
+}
+else if(parseFloat(precio) <= 0){
+document.getElementById("errPrecio").innerHTML =
+"El precio debe ser mayor que cero";
+ok = false;
+}
+
+if(categoria === ""){
+document.getElementById("errCategoria").innerHTML =
+"Seleccione categoría";
+ok = false;
+}
+
+if(imagen === ""){
+document.getElementById("errImagen").innerHTML =
+"Ingrese nombre de imagen";
+ok = false;
+}
+
+return ok;
+
+}
+
+</script>
 </body>
 </html>
