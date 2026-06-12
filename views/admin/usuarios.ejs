@@ -49,6 +49,27 @@ body {
     padding: 20px;
 }
 
+.header-usuarios{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.btn-nuevo{
+    background:#16a34a;
+    color:white;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-nuevo:hover{
+    background:#15803d;
+}
+
 /* CARD */
 .card {
     background: white;
@@ -139,7 +160,15 @@ text-align:center;
 </div>
 <% } %>
 
-<h2>Usuarios registrados</h2>
+<div class="header-usuarios">
+
+    <h2>Usuarios registrados</h2>
+
+    <a href="/register" class="btn-nuevo">
+        + Nuevo Usuario
+    </a>
+
+</div>
 
 <% usuarios.forEach(u => { %>
     <div class="card">
