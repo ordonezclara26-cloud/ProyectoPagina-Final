@@ -50,15 +50,19 @@ app.get('/admin/login', (req, res) => {
 
 app.get('/register', (req, res) => {
 
-    console.log("USUARIO SESSION:", req.session.usuario);
-
     if (!req.session.usuario) {
-        return res.send("SIN SESION");
+        return res.render('login', {
+            error: 'Acceso denegado'
+        });
     }
 
-    return res.send(
-        "ROL = " + req.session.usuario.rol_id
-    );
+    if (req.session.usuario.rol_id != 1) {
+        return res.render('login', {
+            error: 'Acceso denegado'
+        });
+    }
+
+    res.render('register');
 
 });
 
