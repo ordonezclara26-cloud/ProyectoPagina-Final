@@ -49,7 +49,12 @@ app.get('/admin/login', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
+
+    console.log("SESION:");
+    console.log(req.session.usuario);
+
     res.render('register');
+
 });
 app.get('/inicio', (req, res) => {
     const carrito = req.session.carrito || {};
