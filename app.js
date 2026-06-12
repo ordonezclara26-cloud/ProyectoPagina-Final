@@ -50,12 +50,26 @@ app.get('/admin/login', (req, res) => {
 
 app.get('/register', (req, res) => {
 
-    console.log("SESION:");
-    console.log(req.session.usuario);
+    if (!req.session.usuario) {
+
+        return res.render('login', {
+            error: 'Acceso denegado'
+        });
+
+    }
+
+    if (parseInt(req.session.usuario.rol_id) !== 1) {
+
+        return res.render('login', {
+            error: 'Acceso denegado'
+        });
+
+    }
 
     res.render('register');
 
 });
+
 app.get('/inicio', (req, res) => {
     const carrito = req.session.carrito || {};
     res.render('inicio', {
