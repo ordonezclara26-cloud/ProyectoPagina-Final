@@ -115,6 +115,14 @@ input{
     gap:10px;
     flex-wrap:wrap;
 }
+
+small{
+display:block;
+color:red;
+font-size:13px;
+margin-top:-5px;
+margin-bottom:8px;
+}
 </style>
 </head>
 
@@ -161,19 +169,6 @@ border-radius:6px;
         <%= mensaje %>
         </div>
     <% } %>
-
-    <% if (error) { %>
-<div style="
-background:#dc2626;
-color:white;
-padding:10px;
-margin-bottom:15px;
-border-radius:8px;
-text-align:center;
-">
-<%= error %>
-</div>
-<% } %>
 
     <!-- FORM -->
     <div class="form-box">
@@ -222,25 +217,32 @@ maxlength="150"
 
 <% } else { %>
 
-<form action="/admin/categorias/agregar" method="POST">
+<form
+action="/admin/categorias/agregar"
+method="POST"
+onsubmit="return validarCategoria()"
+novalidate
+>
 
     <input
 type="text"
+id="nombre"
 name="nombre"
 placeholder="Nombre"
-required
-minlength="3"
 maxlength="50"
 >
 
+<small id="errNombre"></small>
+
 <input
 type="text"
+id="descripcion"
 name="descripcion"
 placeholder="Descripción"
-required
-minlength="5"
 maxlength="150"
 >
+
+<small id="errDescripcion"></small>
 
     <button type="submit" class="btn-add">
         Agregar
@@ -278,6 +280,59 @@ maxlength="150"
     </div>
 
 </div>
+<script>
 
+function validarCategoria(){
+
+let ok = true;
+
+document.getElementById("errNombre").innerHTML = "";
+document.getElementById("errDescripcion").innerHTML = "";
+
+const nombre =
+document.getElementById("nombre").value.trim();
+
+const descripcion =
+document.getElementById("descripcion").value.trim();
+
+if(nombre === ""){
+
+document.getElementById("errNombre").innerHTML =
+"Ingrese nombre";
+
+ok = false;
+
+}
+else if(nombre.length < 3){
+
+document.getElementById("errNombre").innerHTML =
+"El nombre debe tener al menos 3 caracteres";
+
+ok = false;
+
+}
+
+if(descripcion === ""){
+
+document.getElementById("errDescripcion").innerHTML =
+"Ingrese descripción";
+
+ok = false;
+
+}
+else if(descripcion.length < 5){
+
+document.getElementById("errDescripcion").innerHTML =
+"La descripción debe tener al menos 5 caracteres";
+
+ok = false;
+
+}
+
+return ok;
+
+}
+
+</script>
 </body>
 </html>
