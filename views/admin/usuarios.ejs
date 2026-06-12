@@ -67,6 +67,39 @@ button {
     border: none;
     border-radius: 5px;
 }
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.5);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+}
+
+.modal-box{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    text-align:center;
+    min-width:300px;
+}
+
+.modal-box p{
+    margin-bottom:20px;
+    font-size:16px;
+}
+
+.modal-box button{
+    margin:0 5px;
+}
 </style>
 
 </head>
@@ -118,22 +151,22 @@ text-align:center;
 
         <br><br>
 
-        <form
+       <form
 action="/admin/usuarios/bloquear"
 method="POST"
-onsubmit="return confirmarBloqueo()"
+class="formBloquear"
 >
             <input type="hidden" name="id" value="<%= u.id %>">
-            <button>Bloquear</button>
+            <button type="submit">Bloquear</button>
         </form>
 
         <form
 action="/admin/usuarios/activar"
 method="POST"
-onsubmit="return confirmarActivacion()"
+class="formActivar"
 >
             <input type="hidden" name="id" value="<%= u.id %>">
-            <button>Activar</button>
+            <button type="submit">Activar</button>
         </form>
 
     </div>
@@ -141,23 +174,75 @@ onsubmit="return confirmarActivacion()"
 
 </div>
 <script>
+let formularioActual = null;
 
-function confirmarBloqueo(){
+document.querySelectorAll(".formBloquear")
+.forEach(form => {
 
-return confirm(
-"¿Desea bloquear este usuario?"
-);
+    form.addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+        formularioActual = this;
+
+        document.getElementById("textoModal").innerHTML =
+        "¿Desea bloquear este usuario?";
+
+        document.getElementById("modalConfirmacion").style.display =
+        "flex";
+
+    });
+
+});
+
+document.querySelectorAll(".formActivar")
+.forEach(form => {
+
+    form.addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+        formularioActual = this;
+
+        document.getElementById("textoModal").innerHTML =
+        "¿Desea activar este usuario?";
+
+        document.getElementById("modalConfirmacion").style.display =
+        "flex";
+
+    });
+
+});
+
+function aceptarAccion(){
+
+    formularioActual.submit();
 
 }
 
-function confirmarActivacion(){
+function cerrarModal(){
 
-return confirm(
-"¿Desea activar este usuario?"
-);
+    document.getElementById("modalConfirmacion").style.display =
+    "none";
 
 }
-
 </script>
+<div id="modalConfirmacion" class="modal">
+
+    <div class="modal-box">
+
+        <p id="textoModal"></p>
+
+        <button type="button" onclick="aceptarAccion()">
+            Aceptar
+        </button>
+
+        <button type="button" onclick="cerrarModal()">
+            Cancelar
+        </button>
+
+    </div>
+
+</div>
 </body>
 </html>
