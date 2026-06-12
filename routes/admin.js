@@ -79,6 +79,31 @@ router.post('/usuarios/activar', verificarAdmin, (req, res) => {
     );
 });
 
+router.post('/usuarios/eliminar', verificarAdmin, (req, res) => {
+
+    const id = req.body.id;
+
+    if (parseInt(id) === req.session.usuario.id) {
+
+        req.session.mensaje = "No puede eliminar su propia cuenta";
+
+        return res.redirect('/admin/usuarios');
+    }
+
+    db.query(
+        "DELETE FROM usuarios WHERE id = ?",
+        [id],
+        () => {
+
+            req.session.mensaje = "Usuario eliminado";
+
+            res.redirect('/admin/usuarios');
+
+        }
+    );
+
+});
+
 // GESTIÓN DE PRODUCTOS (CRUD MULTIMEDIA)
 router.get('/productos', verificarAdmin, (req, res) => {
 

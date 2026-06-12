@@ -169,6 +169,15 @@ class="formActivar"
             <button type="submit">Activar</button>
         </form>
 
+        <form
+action="/admin/usuarios/eliminar"
+method="POST"
+class="formEliminar"
+>
+    <input type="hidden" name="id" value="<%= u.id %>">
+    <button type="submit">Eliminar</button>
+</form>
+
     </div>
 <% }) %>
 
@@ -206,6 +215,25 @@ document.querySelectorAll(".formActivar")
 
         document.getElementById("textoModal").innerHTML =
         "¿Desea activar este usuario?";
+
+        document.getElementById("modalConfirmacion").style.display =
+        "flex";
+
+    });
+
+});
+
+document.querySelectorAll(".formEliminar")
+.forEach(form => {
+
+    form.addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+        formularioActual = this;
+
+        document.getElementById("textoModal").innerHTML =
+        "¿Desea eliminar este usuario?";
 
         document.getElementById("modalConfirmacion").style.display =
         "flex";
