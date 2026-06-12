@@ -19,6 +19,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+function verificarSesion(req, res, next) {
+
+    if (!req.session.usuario) {
+        return res.redirect('/admin/login');
+    }
+
+    next();
+}
+
 // MIDDLEWARE DE PROTECCIÓN (SEGURIDAD)
 // Verifica que el usuario esté logueado y que sea Administrador (rol_id === 1)
 function verificarAdmin(req, res, next) {
@@ -28,31 +37,25 @@ function verificarAdmin(req, res, next) {
     }
 
     if (req.session.usuario.rol_id !== 1) {
-        return res.send('Acceso denegado');
+        req.session.mensajeError =
+'Solo los administradores pueden gestionar usuarios';
+
+return res.redirect('/admin');
     }
 
     next(); // Si todo es correcto, permite continuar a la ruta
 }
 
-// DASHBOARD
-router.get('/', verificarAdmin, (req, res) => {
-    res.render('admin/dashboard');
-});
-
 // GESTIÓN DE USUARIOS (BLOQUEO Y ACTIVACIÓN)
-router.get('/usuarios', verificarAdmin, (req, res) => {
+router.get('/', verificarSesion, (req, res) => {
 
-    const mensaje = req.session.mensaje;
-    req.session.mensaje = null;
+    const mensajeError = req.session.mensajeError;
+    req.session.mensajeError = null;
 
-    db.query("SELECT * FROM usuarios", (err, results) => {
-        if (err) return res.send('Error');
-
-        res.render('admin/usuarios', {
-            usuarios: results,
-            mensaje: mensaje
-        });
+    res.render('admin/dashboard', {
+        mensajeError
     });
+
 });
 
 router.post('/usuarios/bloquear', verificarAdmin, (req, res) => {

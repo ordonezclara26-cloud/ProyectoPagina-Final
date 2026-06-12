@@ -93,6 +93,16 @@
     .card h3 {
         margin: 0;
     }
+
+    .mensaje-acceso{
+    margin-top:25px;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    border-left:5px solid #9333ea;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    display:none;
+}
 </style>
 </head>
 
@@ -117,9 +127,17 @@
 
 <div class="container">
 
-    <h2 class="title">Bienvenido al sistema</h2>
+   <h2 class="title">Bienvenido al sistema</h2>
 
-    <div class="grid">
+<% if(mensajeError){ %>
+
+<div class="mensaje-acceso" style="display:block;">
+    ⚠ <%= mensajeError %>
+</div>
+
+<% } %>
+
+<div class="grid">
 
         <a href="/admin/categorias" style="text-decoration:none;">
             <div class="card cat">
@@ -142,16 +160,49 @@
             </div>
         </a>
 
-        <a href="/admin/usuarios" style="text-decoration:none;">
-            <div class="card user">
-                <div class="icon">👤</div>
-                <h3>Usuarios</h3>
-            </div>
-        </a>
+        <% if(usuario && usuario.rol_id == 1){ %>
+
+<a href="/admin/usuarios" style="text-decoration:none;">
+    <div class="card user">
+        <div class="icon">👤</div>
+        <h3>Usuarios</h3>
+    </div>
+</a>
+
+<% } else { %>
+
+<a href="#"
+   onclick="mostrarAcceso(); return false;"
+   style="text-decoration:none;">
+
+    <div class="card user">
+        <div class="icon">👤</div>
+        <h3>Usuarios</h3>
+    </div>
+
+</a>
+
+<% } %>
 
     </div>
 
+<div id="mensajeAcceso" class="mensaje-acceso">
+    ⚠ Solo los administradores pueden gestionar usuarios.
 </div>
 
+</div>
+
+<script>
+
+function mostrarAcceso(){
+
+    document.getElementById("mensajeAcceso").style.display =
+    "block";
+
+}
+
+</script>
+
 </body>
+
 </html>

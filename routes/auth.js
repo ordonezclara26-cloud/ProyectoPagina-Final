@@ -8,7 +8,6 @@ const bcrypt = require('bcrypt');
 //REGISTRO DE ADMINISTRADORES
 //Esta ruta convierte contraseñas planas en 'hashes' antes de guardarlas.
 router.post('/register', async (req, res) => {
-
 const { nombre, correo, password } = req.body;
 
 if(password.length < 10 || password.length > 13){
