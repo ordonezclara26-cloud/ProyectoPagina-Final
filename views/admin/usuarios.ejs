@@ -118,12 +118,20 @@ text-align:center;
 
         <br><br>
 
-        <form action="/admin/usuarios/bloquear" method="POST">
+        <form
+action="/admin/usuarios/bloquear"
+method="POST"
+onsubmit="return confirmarBloqueo()"
+>
             <input type="hidden" name="id" value="<%= u.id %>">
             <button>Bloquear</button>
         </form>
 
-        <form action="/admin/usuarios/activar" method="POST">
+        <form
+action="/admin/usuarios/activar"
+method="POST"
+onsubmit="return confirmarActivacion()"
+>
             <input type="hidden" name="id" value="<%= u.id %>">
             <button>Activar</button>
         </form>
@@ -132,6 +140,24 @@ text-align:center;
 <% }) %>
 
 </div>
+<script>
 
+function confirmarBloqueo(){
+
+return confirm(
+"¿Desea bloquear este usuario?"
+);
+
+}
+
+function confirmarActivacion(){
+
+return confirm(
+"¿Desea activar este usuario?"
+);
+
+}
+
+</script>
 </body>
 </html>
